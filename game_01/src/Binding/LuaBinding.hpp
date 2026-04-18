@@ -93,6 +93,18 @@ bool IsActionActivated(const std::string& action) {
     return Game::GetInstance().controllerManager->isActionActivated(action);
 }
 
+//* LayerComponent
+
+int GetLayer(Entity entity) {
+    return entity.GetComponent<LayerComponent>().z;
+}
+
+
+void RemoveLayer(int z) {
+    // std::cout << "[LUABINDING] entered RemoveLayer with z = " << z << std::endl;
+    Game::GetInstance().registry->GetSystem<LayerSystem>().RemoveLayer(z);
+}
+
 //* RigidBodyComponent
 
 std::tuple<int, int> GetVelocity(Entity entity) {

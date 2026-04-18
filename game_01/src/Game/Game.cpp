@@ -9,6 +9,7 @@
 #include "../Systems/CameraMovementSystem.hpp"
 #include "../Systems/CircleCollisionSystem.hpp"
 // #include "../Systems/DamageSystem.hpp"
+#include "../Systems/LayerSystem.hpp"
 #include "../Systems/MovementSystem.hpp"
 #include "../Systems/OverlapSystem.hpp"
 #include "../Systems/PhysicsSystem.hpp"
@@ -100,6 +101,7 @@ void Game::SetUp() {
     registry->AddSystem<CameraMovementSystem>();
     registry->AddSystem<CircleCollisionSystem>();
     // registry->AddSystem<DamageSystem>();
+    registry->AddSystem<LayerSystem>();
     registry->AddSystem<MovementSystem>();
     registry->AddSystem<OverlapSystem>();
     registry->AddSystem<PhysicsSystem>();
@@ -152,7 +154,8 @@ void Game::ProcessInput() {
                 eventManager->EmitEvent<ClickEvent>(
                     static_cast<int>(sdlEvent.button.button), sdlEvent.button.x
                     , sdlEvent.button.y);
-                    // std::cout << (int)sdlEvent.button.button << std::endl;
+                    std::cout << (int)sdlEvent.button.button << std::endl;
+                    std::cout << "(x, y) : (" << (int)sdlEvent.button.x << ", " << (int)sdlEvent.button.y << ")" << std::endl;
                 break;
             case SDL_MOUSEBUTTONUP:
                 controllerManager->SetMousePosition(sdlEvent.button.x
@@ -196,6 +199,7 @@ void Game::Update() {
 
     registry->GetSystem<AnimationSystem>().Update();
     registry->GetSystem<CameraMovementSystem>().Update(camera);
+    registry->GetSystem<UISystem>().Update(camera);
 }
 
 void Game::Render() {
@@ -204,6 +208,7 @@ void Game::Render() {
 
     registry->GetSystem<RenderSystem>().Update(renderer, camera, assetManager);
     registry->GetSystem<RenderTextSystem>().Update(renderer, assetManager);
+    registry->GetSystem<UISystem>().Update(camera);
 
     if (isDebugMode) {
         registry->GetSystem<RenderBoxColliderSystem>().Update(renderer, camera);

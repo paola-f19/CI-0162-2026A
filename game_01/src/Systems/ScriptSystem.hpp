@@ -40,6 +40,9 @@ class ScriptSystem : public System {
 
             lua.set_function("left_collision", LeftCollision);
             lua.set_function("right_collision", RightCollision);
+
+            lua.set_function("remove_layer", RemoveLayer);
+            lua.set_function("get_layer", GetLayer);
         }
 
         void Update(sol::state& lua) {
