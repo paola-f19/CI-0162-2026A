@@ -48,12 +48,12 @@ bool LeftCollision(Entity e, Entity other) {
     const auto& oCollider = other.GetComponent<BoxColliderComponent>();
     const auto& oTransform = other.GetComponent<TransformComponent>();
 
-    float eX = eTransform.previousPosition.x;
-    float eY = eTransform.previousPosition.y;
+    float eX = eTransform.previousPosition.x + eCollider.offset.x;
+    float eY = eTransform.previousPosition.y + eCollider.offset.y;
     float eH = static_cast<float>(eCollider.height);
 
-    float oX = oTransform.previousPosition.x;
-    float oY = oTransform.previousPosition.y;
+    float oX = oTransform.previousPosition.x + oCollider.offset.x;
+    float oY = oTransform.previousPosition.y + oCollider.offset.y;
     float oH = static_cast<float>(oCollider.height);
 
     // El lado izquierdo de e choca contra other
@@ -71,12 +71,12 @@ bool RightCollision(Entity e, Entity other) {
     const auto& oCollider = other.GetComponent<BoxColliderComponent>();
     const auto& oTransform = other.GetComponent<TransformComponent>();
 
-    float eX = eTransform.previousPosition.x;
-    float eY = eTransform.previousPosition.y;
+    float eX = eTransform.previousPosition.x + eCollider.offset.x;
+    float eY = eTransform.previousPosition.y + eCollider.offset.y;
     float eH = static_cast<float>(eCollider.height);
 
-    float oX = oTransform.previousPosition.x;
-    float oY = oTransform.previousPosition.y;
+    float oX = oTransform.previousPosition.x + oCollider.offset.x;
+    float oY = oTransform.previousPosition.y + oCollider.offset.y;
     float oH = static_cast<float>(oCollider.height);
 
     // El lado derecho de e choca contra other

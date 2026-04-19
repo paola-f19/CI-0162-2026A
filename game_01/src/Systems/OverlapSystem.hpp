@@ -20,13 +20,13 @@ class OverlapSystem : public System {
             auto& aTransform = a.GetComponent<TransformComponent>();
             auto& bTransform = b.GetComponent<TransformComponent>();
 
-            float aX = aTransform.previousPosition.x;
-            float aY = aTransform.previousPosition.y;
+            float aX = aTransform.previousPosition.x + aCollider.offset.x;
+            float aY = aTransform.previousPosition.y + aCollider.offset.y;
             float aW = static_cast<float>(aCollider.width);
             float aH = static_cast<float>(aCollider.height);
 
-            float bX = bTransform.previousPosition.x;
-            float bY = bTransform.previousPosition.y;
+            float bX = bTransform.previousPosition.x + bCollider.offset.x;
+            float bY = bTransform.previousPosition.y + bCollider.offset.y;
             float bW = static_cast<float>(bCollider.width);
             float bH = static_cast<float>(bCollider.height);
 
@@ -77,30 +77,48 @@ class OverlapSystem : public System {
             auto& bTransform = b.GetComponent<TransformComponent>();
             auto& bRigidbody = b.GetComponent<RigidBodyComponent>();
 
+            // TOP: B hits A from above -> move B up
             if (CheckCollision(a, b, Direction::top)) {
-                // Se mueve la entidad b hacia arriba
-                bTransform.position = glm::vec2(bTransform.position.x
-                    , aTransform.position.y - bCollider.height);
-                bRigidbody.velocity = glm::vec2(bRigidbody.velocity.x, 0.0f);
+                float aTop = aTransform.position.y + aCollider.offset.y;
+                float bOffsetY = bCollider.offset.y;
+
+                bTransform.position.y = aTop - bCollider.height - bOffsetY;
+
+                // Do NOT modify X
+                bRigidbody.velocity.y = 0.0f;
             }
 
+            // BOTTOM: B hits A from below -> move B down
             if (CheckCollision(a, b, Direction::bottom)) {
-                // Se mueve la entidad b hacia abajo
-                bTransform.position = glm::vec2(bTransform.position.x
-                    , aTransform.position.y + aCollider.height);
-                bRigidbody.velocity = glm::vec2(bRigidbody.velocity.x, 0.0f);
+                float aBottom = aTransform.position.y + aCollider.offset.y + aCollider.height;
+                float bOffsetY = bCollider.offset.y;
+
+                bTransform.position.y = aBottom - bOffsetY;
+
+                // Do NOT modify X
+                bRigidbody.velocity.y = 0.0f;
             }
 
+            // LEFT: B hits A from the left -> move B left
             if (CheckCollision(a, b, Direction::left)) {
-                bTransform.position = glm::vec2(aTransform.position.x - bCollider.width
-                    , bTransform.position.y);
-                bRigidbody.velocity = glm::vec2(0.0f, bRigidbody.velocity.y);
+                float aLeft = aTransform.position.x + aCollider.offset.x;
+                float bOffsetX = bCollider.offset.x;
+
+                bTransform.position.x = aLeft - bCollider.width - bOffsetX;
+
+                // Do NOT modify Y
+                bRigidbody.velocity.x = 0.0f;
             }
 
+            // RIGHT: B hits A from the right -> move B right
             if (CheckCollision(a, b, Direction::right)) {
-                bTransform.position = glm::vec2(aTransform.position.x + aCollider.width
-                    , bTransform.position.y);
-                bRigidbody.velocity = glm::vec2(0.0f, bRigidbody.velocity.y);
+                float aRight = aTransform.position.x + aCollider.offset.x + aCollider.width;
+                float bOffsetX = bCollider.offset.x;
+
+                bTransform.position.x = aRight - bOffsetX;
+
+                // Do NOT modify Y
+                bRigidbody.velocity.x = 0.0f;
             }
         }
 
