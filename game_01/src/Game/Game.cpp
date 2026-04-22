@@ -197,7 +197,7 @@ void Game::Update() {
     registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
     registry->GetSystem<CircleCollisionSystem>().Update(eventManager);
 
-    registry->GetSystem<AnimationSystem>().Update();
+    registry->GetSystem<AnimationSystem>().Update(animationManager);
     registry->GetSystem<CameraMovementSystem>().Update(camera);
     registry->GetSystem<UISystem>().Update(camera);
 }

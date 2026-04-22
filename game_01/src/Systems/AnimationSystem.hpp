@@ -7,19 +7,39 @@
 
 class AnimationSystem : public System {
     public:
+
+
         AnimationSystem() {
             RequireComponent<AnimationComponent>();
             RequireComponent<SpriteComponent>();
         }
 
-        void Update() {
+        void Update(std::unique_ptr<AnimationManager>& animationManager) {
             for (auto entity : GetSystemEntities()) {
                 auto& animation = entity.GetComponent<AnimationComponent>();
                 auto& sprite = entity.GetComponent<SpriteComponent>();
 
-                animation.currentFrame = ((SDL_GetTicks() - animation.startTime)
-                    * animation.frameSpeedRate / 1000) % animation.numFrames;
-                sprite.srcRect.x = animation.currentFrame * sprite.width;
+                const auto& data = animationManager->GetAnimation(animation.animationId);
+
+                int frame = ((SDL_GetTicks() - animation.startTime)
+                    * data.frameSpeedRate / 1000);
+
+                if (data.isLoop) {
+                    frame %= data.numFrames;
+                } else {
+                    frame = std::min(frame, data.numFrames - 1);
+                }
+
+                animation.currentFrame = frame;
+
+                sprite.srcRect.x = frame * data.width;
+                sprite.srcRect.y = data.row * data.height;
+                sprite.srcRect.w = data.width;
+                sprite.srcRect.h = data.height;
+
+                //  Destination size
+                sprite.width  = data.width;
+                sprite.height = data.height;
             }
         }
 };

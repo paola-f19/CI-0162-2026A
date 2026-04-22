@@ -3,21 +3,18 @@
 
 #include <SDL2/SDL.h>
 
+#include <string>
+
 struct AnimationComponent {
-    int numFrames;
+    std::string animationId;
     int currentFrame;
-    int frameSpeedRate;
-    bool isLoop;
     int startTime;
 
-    AnimationComponent(int numFrames = 1, int frameSpeedRate = 1
-        , bool isLoop = true) {
-            this->numFrames = numFrames;
+    AnimationComponent(std::string id = "") {
+            this->animationId = id;
             this->currentFrame = 1;
-            this->frameSpeedRate = frameSpeedRate;
-            this->isLoop = isLoop;
             this->startTime = SDL_GetTicks();
-        }
+    }
 };
 
 #endif  // ANIMATIONCOMPONENT_HPP

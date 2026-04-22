@@ -104,13 +104,14 @@ void SceneLoader::LoadAnimations(const sol::table& animations
 
         std::string animationId = animation["animation_id"];
         std::string textureId = animation["texture_id"];
+        int row = animation["row"];
         int width = animation["w"];
         int height = animation["h"];
         int numFrames = animation["num_frames"];
         int speedRate = animation["speed_rate"];
         bool isLoop = animation["is_loop"];
 
-        animationManager->AddAnimation(animationId, textureId, width, height
+        animationManager->AddAnimation(animationId, textureId, row, width, height
             , numFrames, speedRate, isLoop);
 
         index++;
@@ -404,11 +405,8 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
             //* AnimationComponent
             sol::optional<sol::table> hasAnimation = components["animation"];
             if (hasAnimation != sol::nullopt) {
-                newEntity.AddComponent<AnimationComponent>(
-                    components["animation"]["num_frames"],
-                    components["animation"]["speed_rate"],
-                    components["animation"]["is_loop"]
-                );
+                std::string id = components["animation"]["id"];
+                newEntity.AddComponent<AnimationComponent>(id);
             }
             std::cout << "  [LOAD ENTITIES] loaded animation" << std::endl;
 
@@ -479,7 +477,11 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
                     components["sprite"]["width"],
                     components["sprite"]["height"],
                     components["sprite"]["src_rect"]["x"],
-                    components["sprite"]["src_rect"]["y"]
+                    components["sprite"]["src_rect"]["y"],
+                    glm::vec2(
+                        components["sprite"]["offset"]["x"],
+                        components["sprite"]["offset"]["y"]
+                    )
                 );
             }
             std::cout << "  [LOAD ENTITIES] loaded sprite" << std::endl;

@@ -22,6 +22,8 @@ void ChangeAnimation(Entity entity, const std::string& animationId) {
     auto& animation = entity.GetComponent<AnimationComponent>();
     auto& sprite = entity.GetComponent<SpriteComponent>();
 
+    animation.animationId = animationId;
+
     AnimationData animationData;
     animationData = Game::GetInstance().animationManager->GetAnimation(
         animationId);
@@ -33,9 +35,6 @@ void ChangeAnimation(Entity entity, const std::string& animationId) {
     sprite.srcRect.y = 0;
 
     animation.currentFrame = 1;
-    animation.frameSpeedRate = animationData.frameSpeedRate;
-    animation.numFrames = animationData.numFrames;
-    animation.isLoop = animationData.isLoop;
     animation.startTime = SDL_GetTicks();
 }
 

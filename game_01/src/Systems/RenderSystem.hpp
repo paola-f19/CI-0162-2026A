@@ -23,10 +23,10 @@ class RenderSystem : public System {
 
                 SDL_Rect srcRect = sprite.srcRect;
                 SDL_Rect dstRect = {
-                    static_cast<int>(transform.position.x - camera.x),
-                    static_cast<int>(transform.position.y - camera.y),
+                    static_cast<int>(transform.position.x + sprite.offset.x - camera.x),
+                    static_cast<int>(transform.position.y + sprite.offset.y - camera.y),
                     static_cast<int>(sprite.width * transform.scale.x),
-                    static_cast<int>(sprite.height * transform.scale.y),
+                    static_cast<int>(sprite.height * transform.scale.y)
                 };
 
                 SDL_RenderCopyEx(

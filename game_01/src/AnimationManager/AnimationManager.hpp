@@ -6,6 +6,7 @@
 
 struct AnimationData {
     std::string textureId;
+    int row;
     int width;
     int height;
     int numFrames;
@@ -14,6 +15,7 @@ struct AnimationData {
 
     AnimationData(
         const std::string& textureId = "",
+        int row = 0,
         int width = 0,
         int height = 0,
         int numFrames = 1,
@@ -21,6 +23,7 @@ struct AnimationData {
         bool isLoop = true
     ) {
         this->textureId = textureId;
+        this->row = row;
         this->width = width;
         this->height = height;
         this->numFrames = numFrames;
@@ -39,6 +42,7 @@ class AnimationManager {
         void AddAnimation(
             const std::string& animationId,
             const std::string& textureId,
+            int row,
             int width,
             int height,
             int numFrames,
