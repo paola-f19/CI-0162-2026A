@@ -8,7 +8,8 @@
 #include "../Systems/BoxCollisionSystem.hpp"
 #include "../Systems/CameraMovementSystem.hpp"
 #include "../Systems/CircleCollisionSystem.hpp"
-// #include "../Systems/DamageSystem.hpp"
+#include "../Systems/DamageSystem.hpp"
+#include "../Systems/HealthSystem.hpp"
 #include "../Systems/LayerSystem.hpp"
 #include "../Systems/MovementSystem.hpp"
 #include "../Systems/OverlapSystem.hpp"
@@ -100,7 +101,8 @@ void Game::SetUp() {
     registry->AddSystem<BoxCollisionSystem>();
     registry->AddSystem<CameraMovementSystem>();
     registry->AddSystem<CircleCollisionSystem>();
-    // registry->AddSystem<DamageSystem>();
+    registry->AddSystem<DamageSystem>();
+    registry->AddSystem<HealthSystem>();
     registry->AddSystem<LayerSystem>();
     registry->AddSystem<MovementSystem>();
     registry->AddSystem<OverlapSystem>();
@@ -184,7 +186,7 @@ void Game::Update() {
 
     // Reiniciar las subscripciones
     eventManager->Reset();
-    // registry->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
+    registry->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
     registry->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
     registry->GetSystem<UISystem>().SubscribeToClickEvent(eventManager);
 
@@ -196,6 +198,7 @@ void Game::Update() {
     registry->GetSystem<MovementSystem>().Update(deltaTime);
     registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
     registry->GetSystem<CircleCollisionSystem>().Update(eventManager);
+    registry->GetSystem<HealthSystem>().Update(deltaTime);
 
     registry->GetSystem<AnimationSystem>().Update(animationManager);
     registry->GetSystem<CameraMovementSystem>().Update(camera);

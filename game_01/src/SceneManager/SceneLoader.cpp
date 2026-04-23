@@ -8,6 +8,8 @@
 #include "../Components/CameraFollowComponent.hpp"
 #include "../Components/CircleColliderComponent.hpp"
 #include "../Components/ClickableComponent.hpp"
+#include "../Components/DamageComponent.hpp"
+#include "../Components/HealthComponent.hpp"
 #include "../Components/LayerComponent.hpp"
 #include "../Components/RigidBodyComponent.hpp"
 #include "../Components/ScriptComponent.hpp"
@@ -449,6 +451,22 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
                 newEntity.AddComponent<ClickableComponent>();
             }
             std::cout << "  [LOAD ENTITIES] loaded clickable" << std::endl;
+
+            //* DamageComponent
+            sol::optional<sol::table> hasDamage = components["damage"];
+            if (hasDamage != sol::nullopt) {
+                int damage = components["damage"]["damage"];
+                newEntity.AddComponent<DamageComponent>(damage);
+            }
+
+            //* HealthComponent
+            sol::optional<sol::table> hasHealth = components["health"];
+            if (hasHealth != sol::nullopt) {
+                newEntity.AddComponent<HealthComponent>(
+                    components["health"]["maxHealth"],
+                    components["health"]["currentHealth"]
+                );
+            }
 
             //* LayerComponent
             sol::optional<sol::table> hasLayer = components["layer"];
