@@ -16,6 +16,7 @@
 #include "../Systems/LifetimeSystem.hpp"
 #include "../Systems/MovementSystem.hpp"
 #include "../Systems/OverlapSystem.hpp"
+#include "../Systems/PatrolSystem.hpp"
 #include "../Systems/PhysicsSystem.hpp"
 #include "../Systems/RenderBoxColliderSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
@@ -112,6 +113,7 @@ void Game::SetUp() {
   registry->AddSystem<LifetimeSystem>();
   registry->AddSystem<MovementSystem>();
   registry->AddSystem<OverlapSystem>();
+  registry->AddSystem<PatrolSystem>();
   registry->AddSystem<PhysicsSystem>();
   registry->AddSystem<RenderBoxColliderSystem>();
   registry->AddSystem<RenderSystem>();
@@ -209,6 +211,8 @@ void Game::Update() {
   registry->GetSystem<LifetimeSystem>().Update(deltaTime);
   registry->GetSystem<HealthSystem>().Update(deltaTime);
   registry->GetSystem<AttackSystem>().Update(deltaTime);
+
+  registry->GetSystem<PatrolSystem>().Update(deltaTime);
 
   registry->GetSystem<AnimationSystem>().Update(animationManager);
   registry->GetSystem<CameraMovementSystem>().Update(camera);

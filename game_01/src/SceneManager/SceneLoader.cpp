@@ -15,6 +15,7 @@
 #include "../Components/HealthBarComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/LayerComponent.hpp"
+#include "../Components/PatrolComponent.hpp"
 #include "../Components/RigidBodyComponent.hpp"
 #include "../Components/ScriptComponent.hpp"
 #include "../Components/SpriteComponent.hpp"
@@ -524,6 +525,31 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
         newEntity.AddComponent<LayerComponent>(layer);
       }
       std::cout << "  [LOAD ENTITIES] loaded layer" << std::endl;
+
+      //* PatrolComponent
+      sol::optional<sol::table> hasPatrol = components["patrol"];
+      if (hasPatrol != sol::nullopt) {
+        std::vector<glm::vec2> points;
+
+        int index = 0;
+        while (true) {
+          sol::optional<sol::table> hasWaypoint = components["patrol"]["waypoints"][index];
+          if (hasWaypoint == sol::nullopt) {
+            break;
+          }
+
+          sol::table point = components["patrol"]["waypoints"][index];
+          points.emplace_back(point["x"], point["y"]);
+
+          index++;
+        }
+
+        newEntity.AddComponent<PatrolComponent>(
+            points,
+            0,
+            components["patrol"]["speed"]
+        );
+      }
 
       //* RigidBodyComponent
       sol::optional<sol::table> hasRigidBody = components["rigid_body"];
