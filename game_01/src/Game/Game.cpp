@@ -10,6 +10,7 @@
 #include "../Systems/CameraMovementSystem.hpp"
 #include "../Systems/CircleCollisionSystem.hpp"
 #include "../Systems/DamageSystem.hpp"
+#include "../Systems/HealthBarSystem.hpp"
 #include "../Systems/HealthSystem.hpp"
 #include "../Systems/LayerSystem.hpp"
 #include "../Systems/LifetimeSystem.hpp"
@@ -105,6 +106,7 @@ void Game::SetUp() {
   registry->AddSystem<CameraMovementSystem>();
   registry->AddSystem<CircleCollisionSystem>();
   registry->AddSystem<DamageSystem>();
+  registry->AddSystem<HealthBarSystem>();
   registry->AddSystem<HealthSystem>();
   registry->AddSystem<LayerSystem>();
   registry->AddSystem<LifetimeSystem>();
@@ -219,6 +221,7 @@ void Game::Render() {
 
   registry->GetSystem<RenderSystem>().Update(renderer, camera, assetManager);
   registry->GetSystem<RenderTextSystem>().Update(renderer, assetManager);
+  registry->GetSystem<HealthBarSystem>().Update(renderer);
   registry->GetSystem<UISystem>().Update(camera);
 
   if (isDebugMode) {

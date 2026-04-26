@@ -12,6 +12,7 @@
 #include "../Components/DamageComponent.hpp"
 #include "../Components/DirectionComponent.hpp"
 #include "../Components/FactionComponent.hpp"
+#include "../Components/HealthBarComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/LayerComponent.hpp"
 #include "../Components/RigidBodyComponent.hpp"
@@ -485,6 +486,26 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
       if (hasFaction != sol::nullopt) {
         std::string faction = components["faction"]["faction"];
         newEntity.AddComponent<FactionComponent>(faction);
+      }
+
+      //* HealthBarComponent
+      sol::optional<sol::table> hasHealthBar = components["healthbar"];
+      if (hasHealthBar != sol::nullopt) {
+        SDL_Color fg = {components["healthbar"]["fgColor"]["r"]
+          , components["healthbar"]["fgColor"]["g"]
+          , components["healthbar"]["fgColor"]["b"]
+          , components["healthbar"]["fgColor"]["a"]
+        };
+        SDL_Color bg = {components["healthbar"]["bgColor"]["r"]
+          , components["healthbar"]["bgColor"]["g"]
+          , components["healthbar"]["bgColor"]["b"]
+          , components["healthbar"]["bgColor"]["a"]
+        };
+        newEntity.AddComponent<HealthBarComponent>(
+          components["healthbar"]["width"],
+          components["healthbar"]["height"],
+          fg, bg
+        );
       }
 
       //* HealthComponent
