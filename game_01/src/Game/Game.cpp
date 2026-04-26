@@ -12,6 +12,7 @@
 #include "../Systems/DamageSystem.hpp"
 #include "../Systems/HealthSystem.hpp"
 #include "../Systems/LayerSystem.hpp"
+#include "../Systems/LifetimeSystem.hpp"
 #include "../Systems/MovementSystem.hpp"
 #include "../Systems/OverlapSystem.hpp"
 #include "../Systems/PhysicsSystem.hpp"
@@ -106,6 +107,7 @@ void Game::SetUp() {
     registry->AddSystem<DamageSystem>();
     registry->AddSystem<HealthSystem>();
     registry->AddSystem<LayerSystem>();
+    registry->AddSystem<LifetimeSystem>();
     registry->AddSystem<MovementSystem>();
     registry->AddSystem<OverlapSystem>();
     registry->AddSystem<PhysicsSystem>();
@@ -201,6 +203,8 @@ void Game::Update() {
     registry->GetSystem<MovementSystem>().Update(deltaTime);
     registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
     registry->GetSystem<CircleCollisionSystem>().Update(eventManager);
+    
+    registry->GetSystem<LifetimeSystem>().Update(deltaTime);
     registry->GetSystem<HealthSystem>().Update(deltaTime);
     registry->GetSystem<AttackSystem>().Update(deltaTime);
 

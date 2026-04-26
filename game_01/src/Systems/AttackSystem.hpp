@@ -10,6 +10,7 @@
 #include "../Components/DamageComponent.hpp"
 #include "../Components/DirectionComponent.hpp"
 #include "../Components/FactionComponent.hpp"
+#include "../Components/LifetimeComponent.hpp"
 #include "../Components/ScriptComponent.hpp"
 #include "../Components/TransformComponent.hpp"
 #include "../ECS/ECS.hpp"
@@ -55,7 +56,7 @@ class AttackSystem : public System {
             hitbox.AddComponent<FactionComponent>(faction.faction);
 
             // Lifetime so it disappears automatically
-            // hitbox.AddComponent<LifetimeComponent>(attack.duration);
+            hitbox.AddComponent<LifetimeComponent>(attack.duration);
         }
 
         glm::vec2 GetFacingDirection(Entity player) {
