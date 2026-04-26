@@ -5,6 +5,7 @@
 #include "../Events/ClickEvent.hpp"
 
 #include "../Systems/AnimationSystem.hpp"
+#include "../Systems/AttackSystem.hpp"
 #include "../Systems/BoxCollisionSystem.hpp"
 #include "../Systems/CameraMovementSystem.hpp"
 #include "../Systems/CircleCollisionSystem.hpp"
@@ -98,6 +99,7 @@ void Game::Init() {
 
 void Game::SetUp() {
     registry->AddSystem<AnimationSystem>();
+    registry->AddSystem<AttackSystem>();
     registry->AddSystem<BoxCollisionSystem>();
     registry->AddSystem<CameraMovementSystem>();
     registry->AddSystem<CircleCollisionSystem>();
@@ -189,16 +191,18 @@ void Game::Update() {
     registry->GetSystem<DamageSystem>().SubscribeToCollisionEvent(eventManager);
     registry->GetSystem<OverlapSystem>().SubscribeToCollisionEvent(eventManager);
     registry->GetSystem<UISystem>().SubscribeToClickEvent(eventManager);
+    registry->GetSystem<AttackSystem>().SubscribeToClickEvent(eventManager);
 
     registry->Update();
 
-    registry->GetSystem<ScriptSystem>().Update(lua);
+    registry->GetSystem<ScriptSystem>().Update(lua, deltaTime);
     
     registry->GetSystem<PhysicsSystem>().Update();
     registry->GetSystem<MovementSystem>().Update(deltaTime);
     registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
     registry->GetSystem<CircleCollisionSystem>().Update(eventManager);
     registry->GetSystem<HealthSystem>().Update(deltaTime);
+    registry->GetSystem<AttackSystem>().Update(deltaTime);
 
     registry->GetSystem<AnimationSystem>().Update(animationManager);
     registry->GetSystem<CameraMovementSystem>().Update(camera);

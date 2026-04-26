@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "../Components/DamageComponent.hpp"
+#include "../Components/FactionComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../ECS/ECS.hpp"
 #include "../EventManager/EventManager.hpp"
@@ -15,6 +16,13 @@ class DamageSystem : public System {
         void HandleDamage(Entity a, Entity b) {
             if (!a.HasComponent<HealthComponent>()) return;
             if (!b.HasComponent<DamageComponent>()) return;
+
+            if (a.HasComponent<FactionComponent>() && b.HasComponent<FactionComponent>()) {
+                auto aFaction = a.GetComponent<FactionComponent>().faction;
+                auto bFaction = b.GetComponent<FactionComponent>().faction;
+
+                if (aFaction == bFaction) return;
+            }
 
             auto& health = a.GetComponent<HealthComponent>();
             const auto& damage = b.GetComponent<DamageComponent>();

@@ -43,15 +43,17 @@ class ScriptSystem : public System {
 
             lua.set_function("remove_layer", RemoveLayer);
             lua.set_function("get_layer", GetLayer);
+
+            lua.set_function("set_direction", SetDirection);
         }
 
-        void Update(sol::state& lua) {
+        void Update(sol::state& lua, double delta_time) {
             for (auto entity : GetSystemEntities()) {
                 const auto& script = entity.GetComponent<ScriptComponent>();
 
                 if (script.update != sol::lua_nil) {
                     lua["this"] = entity;
-                    script.update();
+                    script.update(delta_time);
                 }
             }
         }

@@ -4,11 +4,14 @@
 #include <iostream>
 
 #include "../Components/AnimationComponent.hpp"
+#include "../Components/AttackComponent.hpp"
 #include "../Components/BoxColliderComponent.hpp"
 #include "../Components/CameraFollowComponent.hpp"
 #include "../Components/CircleColliderComponent.hpp"
 #include "../Components/ClickableComponent.hpp"
 #include "../Components/DamageComponent.hpp"
+#include "../Components/DirectionComponent.hpp"
+#include "../Components/FactionComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/LayerComponent.hpp"
 #include "../Components/RigidBodyComponent.hpp"
@@ -412,6 +415,17 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
             }
             std::cout << "  [LOAD ENTITIES] loaded animation" << std::endl;
 
+            //* AttackComponent
+            sol::optional<sol::table> hasAttack = components["attack"];
+            if (hasAttack != sol::nullopt) {
+                newEntity.AddComponent<AttackComponent>(
+                    components["attack"]["damage"],
+                    components["attack"]["range"],
+                    components["attack"]["duration"],
+                    components["attack"]["cooldown"]
+                );
+            }
+
             //* BoxColliderComponent
             sol::optional<sol::table> hasBoxCollider = components["box_collider"];
             if (hasBoxCollider != sol::nullopt) {
@@ -457,6 +471,19 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
             if (hasDamage != sol::nullopt) {
                 int damage = components["damage"]["damage"];
                 newEntity.AddComponent<DamageComponent>(damage);
+            }
+
+            //* DirectionComponent
+            sol::optional<sol::table> hasDirection = components["direction"];
+            if (hasDirection != sol::nullopt) {
+                newEntity.AddComponent<DirectionComponent>();
+            }
+
+            //* FactionComponent
+            sol::optional<sol::table> hasFaction = components["faction"];
+            if (hasFaction != sol::nullopt) {
+                std::string faction = components["faction"]["faction"];
+                newEntity.AddComponent<FactionComponent>(faction);
             }
 
             //* HealthComponent
@@ -578,9 +605,15 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
                 if (hasUpdate != sol::nullopt) {
                     update = lua["update"];
                 }
+
+                sol::optional<sol::function> hasAttack = lua["start_attack"];
+                sol::function startAttack = sol::nil;
+                if (hasAttack != sol::nullopt) {
+                    startAttack = lua["start_attack"];
+                }
                 std::cout << "  [LOAD ENTITIES] loaded script" << std::endl;
 
-                newEntity.AddComponent<ScriptComponent>(onCollision, onClick, update);
+                newEntity.AddComponent<ScriptComponent>(onCollision, onClick, update, startAttack);
             }
         }
 

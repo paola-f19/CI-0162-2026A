@@ -9,6 +9,7 @@
 #include "../AnimationManager/AnimationManager.hpp"
 #include "../Components/AnimationComponent.hpp"
 #include "../Components/BoxColliderComponent.hpp"
+#include "../Components/DirectionComponent.hpp"
 #include "../Components/RigidBodyComponent.hpp"
 #include "../Components/SpriteComponent.hpp"
 #include "../Components/TagComponent.hpp"
@@ -90,6 +91,12 @@ bool RightCollision(Entity e, Entity other) {
 
 bool IsActionActivated(const std::string& action) {
     return Game::GetInstance().controllerManager->isActionActivated(action);
+}
+
+//* DirectionComponent
+void SetDirection(Entity entity, float x, float y) {
+    auto& dir = entity.GetComponent<DirectionComponent>();
+    dir.direction = {x, y};
 }
 
 //* LayerComponent
