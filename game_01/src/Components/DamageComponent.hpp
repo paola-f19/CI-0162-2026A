@@ -2,11 +2,11 @@
 #define DAMAGECOMPONENT_HPP
 
 struct DamageComponent {
-    int damage;
+  int damage;
 
-    DamageComponent(int damage = 0) {
-        this->damage = damage;
-    }
+  DamageComponent(int damage = 0) {
+    this->damage = damage;
+  }
 };
 
 #endif  // DAMAGECOMPONENT_HPP

@@ -2,7 +2,7 @@
 #define CAMERAFOLLOWCOMPONENT_HPP
 
 struct CameraFollowComponent {
-    CameraFollowComponent() {}
+  CameraFollowComponent() {}
 };
 
 #endif  // CAMERAFOLLOWCOMPONENT_HPP

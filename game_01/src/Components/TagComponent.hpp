@@ -4,11 +4,11 @@
 #include <string>
 
 struct TagComponent {
-    std::string tag;
+  std::string tag;
 
-    TagComponent(const std::string& tag = "")  {
-        this->tag = tag;
-    }
+  TagComponent(const std::string& tag = "")  {
+    this->tag = tag;
+  }
 };
 
 #endif  // TAGCOMPONENT_HPP

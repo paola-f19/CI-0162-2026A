@@ -2,11 +2,11 @@
 #define LIFETIMECOMPONENT_HPP
 
 struct LifetimeComponent {
-    float remainingTime;
+  float remainingTime;
 
-    LifetimeComponent(float time = 0.0f) {
-        remainingTime = time;
-    }
+  LifetimeComponent(float time = 0.0f) {
+    remainingTime = time;
+  }
 };
 
 #endif  // LIFETIMECOMPONENT_HPP

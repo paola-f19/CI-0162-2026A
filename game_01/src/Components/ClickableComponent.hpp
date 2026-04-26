@@ -2,10 +2,10 @@
 #define CLICKABLECOMPONENT_HPP
 
 struct ClickableComponent {
-    bool isClicked;
-    ClickableComponent() {
-        isClicked = false;
-    }
+  bool isClicked;
+  ClickableComponent() {
+    isClicked = false;
+  }
 };
 
 #endif  // CLICKABLECOMPONENT_HPP

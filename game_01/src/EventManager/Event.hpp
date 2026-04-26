@@ -2,8 +2,8 @@
 #define EVENT_HPP
 
 class Event {
-    public:
-        Event() = default;
+  public:
+    Event() = default;
 };
 
 #endif  // EVENT_HPP

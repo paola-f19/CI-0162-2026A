@@ -9,37 +9,37 @@
 #include "../ECS/ECS.hpp"
 
 class RenderSystem : public System {
-    public:
-        RenderSystem() {
-            RequireComponent<SpriteComponent>();
-            RequireComponent<TransformComponent>();
-        }
+  public:
+    RenderSystem() {
+      RequireComponent<SpriteComponent>();
+      RequireComponent<TransformComponent>();
+    }
 
-        void Update(SDL_Renderer* renderer, SDL_Rect& camera
-            , const std::unique_ptr<AssetManager>& assetManager) {
-            for (auto entity : GetSystemEntities()) {
-                const auto sprite = entity.GetComponent<SpriteComponent>();
-                const auto transform = entity.GetComponent<TransformComponent>();
+    void Update(SDL_Renderer* renderer, SDL_Rect& camera
+      , const std::unique_ptr<AssetManager>& assetManager) {
+      for (auto entity : GetSystemEntities()) {
+        const auto sprite = entity.GetComponent<SpriteComponent>();
+        const auto transform = entity.GetComponent<TransformComponent>();
 
-                SDL_Rect srcRect = sprite.srcRect;
-                SDL_Rect dstRect = {
-                    static_cast<int>(transform.position.x + sprite.offset.x - camera.x),
-                    static_cast<int>(transform.position.y + sprite.offset.y - camera.y),
-                    static_cast<int>(sprite.width * transform.scale.x),
-                    static_cast<int>(sprite.height * transform.scale.y)
-                };
+        SDL_Rect srcRect = sprite.srcRect;
+        SDL_Rect dstRect = {
+          static_cast<int>(transform.position.x + sprite.offset.x - camera.x),
+          static_cast<int>(transform.position.y + sprite.offset.y - camera.y),
+          static_cast<int>(sprite.width * transform.scale.x),
+          static_cast<int>(sprite.height * transform.scale.y)
+        };
 
-                SDL_RenderCopyEx(
-                    renderer,
-                    assetManager->GetTexture(sprite.textureId),
-                    &srcRect,
-                    &dstRect,
-                    transform.rotation,
-                    NULL,
-                    (sprite.flip) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE
-                );
-            }
-        }
+        SDL_RenderCopyEx(
+          renderer,
+          assetManager->GetTexture(sprite.textureId),
+          &srcRect,
+          &dstRect,
+          transform.rotation,
+          NULL,
+          (sprite.flip) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE
+        );
+      }
+    }
 };
 
 #endif  // RENDERSYSTEM_HPP

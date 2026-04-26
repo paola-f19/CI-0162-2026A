@@ -17,47 +17,47 @@
 #include "../Events/ClickEvent.hpp"
 
 class UISystem : public System {
-    public:
-        SDL_Rect camera = { 0, 0, 0, 0 };
+  public:
+    SDL_Rect camera = { 0, 0, 0, 0 };
 
-        UISystem() {
-            RequireComponent<ClickableComponent>();
-            RequireComponent<SpriteComponent>();
-            // RequireComponent<TextComponent>();
-            RequireComponent<TransformComponent>();
-        }
+    UISystem() {
+      RequireComponent<ClickableComponent>();
+      RequireComponent<SpriteComponent>();
+      // RequireComponent<TextComponent>();
+      RequireComponent<TransformComponent>();
+    }
 
-        void Update(SDL_Rect& camera) {
-            this->camera = camera;
-        }
+    void Update(SDL_Rect& camera) {
+      this->camera = camera;
+    }
 
-        void SubscribeToClickEvent(std::unique_ptr<EventManager>& eventManager) {
-            eventManager->SubscribeToEvent<ClickEvent, UISystem>(this
-                , &UISystem::OnClickEvent);
-        }
+    void SubscribeToClickEvent(std::unique_ptr<EventManager>& eventManager) {
+      eventManager->SubscribeToEvent<ClickEvent, UISystem>(this
+        , &UISystem::OnClickEvent);
+    }
 
-        void OnClickEvent(ClickEvent& e) {
-            for (auto entity : GetSystemEntities()) {
-                const auto& sprite = entity.GetComponent<SpriteComponent>();
-                const auto& transform = entity.GetComponent<TransformComponent>();
+    void OnClickEvent(ClickEvent& e) {
+      for (auto entity : GetSystemEntities()) {
+        const auto& sprite = entity.GetComponent<SpriteComponent>();
+        const auto& transform = entity.GetComponent<TransformComponent>();
 
-                // adjustments for camera and scale
-                int worldX = (e.posX / 2) + this->camera.x;
-                int worldY = (e.posY / 2) + this->camera.y;
+        // adjustments for camera and scale
+        int worldX = (e.posX / 2) + this->camera.x;
+        int worldY = (e.posY / 2) + this->camera.y;
 
-                if (transform.position.x < worldX
-                    && worldX < transform.position.x + sprite.width
-                    && transform.position.y < worldY
-                    && worldY < transform.position.y + sprite.height) {
-                    if (entity.HasComponent<ScriptComponent>()) {
-                        const auto& script = entity.GetComponent<ScriptComponent>();
-                        if (script.onClick != sol::nil) {
-                            script.onClick();
-                        }
-                    }
-                }
+        if (transform.position.x < worldX
+          && worldX < transform.position.x + sprite.width
+          && transform.position.y < worldY
+          && worldY < transform.position.y + sprite.height) {
+          if (entity.HasComponent<ScriptComponent>()) {
+            const auto& script = entity.GetComponent<ScriptComponent>();
+            if (script.onClick != sol::nil) {
+              script.onClick();
             }
+          }
         }
+      }
+    }
 };
 
 #endif  // UISYSTEM_HPP

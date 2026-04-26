@@ -6,15 +6,15 @@
 #include <string>
 
 struct AnimationComponent {
-    std::string animationId;
-    int currentFrame;
-    int startTime;
+  std::string animationId;
+  int currentFrame;
+  int startTime;
 
-    AnimationComponent(std::string id = "") {
-            this->animationId = id;
-            this->currentFrame = 1;
-            this->startTime = SDL_GetTicks();
-    }
+  AnimationComponent(std::string id = "") {
+      this->animationId = id;
+      this->currentFrame = 1;
+      this->startTime = SDL_GetTicks();
+  }
 };
 
 #endif  // ANIMATIONCOMPONENT_HPP
