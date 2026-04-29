@@ -32,6 +32,7 @@ Game::Game() {
 
   animationManager = std::make_unique<AnimationManager>();
   assetManager = std::make_unique<AssetManager>();
+  audioManager = std::make_unique<AudioManager>();
   controllerManager = std::make_unique<ControllerManager>();
   eventManager = std::make_unique<EventManager>();
   registry = std::make_unique<Registry>();
@@ -41,6 +42,7 @@ Game::Game() {
 Game::~Game() {
   animationManager.reset();
   assetManager.reset();
+  audioManager.reset();
   controllerManager.reset();
   eventManager.reset();
   registry.reset();
@@ -65,11 +67,17 @@ void Game::Init() {
     return;
   }
 
+  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+      std::cout << "[GAME] Error al Mix_OpenAudio" << std::endl;
+      return;
+  }
+
+  Mix_VolumeMusic(MIX_MAX_VOLUME);
+
+  Mix_AllocateChannels(16); // number of simultaneous sounds
+
   windowWidth = 800;
   windowHeight = 600;
-
-  // mapWidth = 2000;
-  // mapHeight = 2000;
 
   window = SDL_CreateWindow(
     "Motor de juegos 2D",
@@ -256,6 +264,7 @@ void Game::RunScene() {
   }
 
   assetManager->ClearAssets();
+  audioManager->ClearAudio();
   registry->ClearAllEntities();
 }
 
@@ -271,6 +280,7 @@ void Game::Run() {
 void Game::Destroy() {
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
+  Mix_CloseAudio();
   TTF_Quit();
   SDL_Quit();
 }

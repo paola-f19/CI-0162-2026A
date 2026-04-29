@@ -37,6 +37,7 @@ SceneLoader::~SceneLoader() {
 void SceneLoader::LoadScene(const std::string& scenePath, sol::state& lua
   , std::unique_ptr<AnimationManager>& animationManager
   , std::unique_ptr<AssetManager>& assetManager
+  , std::unique_ptr<AudioManager>& audioManager
   , std::unique_ptr<ControllerManager>& controllerManager
   , std::unique_ptr<Registry>& registry, SDL_Renderer* renderer) {
   
@@ -60,6 +61,14 @@ void SceneLoader::LoadScene(const std::string& scenePath, sol::state& lua
   LoadAnimations(animations, animationManager);
   std::cout << " [SCENELOADER] loaded animations" << std::endl;
 
+  sol::table sounds = scene["sounds"];
+  LoadSoundEffects(sounds, audioManager);
+  std::cout << " [SCENELOADER] loaded sounds" << std::endl;
+
+  sol::table music = scene["music"];
+  LoadMusic(music, audioManager);
+  std::cout << " [SCENELOADER] loaded music" << std::endl;
+
   sol::table fonts = scene["fonts"];
   LoadFonts(fonts, assetManager);
   std::cout << " [SCENELOADER] loaded fonts" << std::endl;
@@ -79,6 +88,9 @@ void SceneLoader::LoadScene(const std::string& scenePath, sol::state& lua
   sol::table entities = scene["entities"];
   LoadEntities(lua, entities, registry);
   std::cout << " [SCENELOADER] loaded entities" << std::endl;
+
+  audioManager->StopMusic();
+  audioManager->PlayMusic("bgMusic");
 }
 
 void SceneLoader::LoadSprites(SDL_Renderer* renderer, const sol::table& sprites
@@ -125,6 +137,44 @@ void SceneLoader::LoadAnimations(const sol::table& animations
 
     index++;
   } 
+}
+
+void SceneLoader::LoadSoundEffects(const sol::table& sounds
+  , std::unique_ptr<AudioManager>& audioManager) {
+  int index = 0;
+  while (true) {
+    sol::optional<sol::table> hasSound = sounds[index];
+    if (hasSound == sol::nullopt) {
+      break;
+    }
+
+    sol::table sound = sounds[index];
+    std::string id = sound["id"];
+    std::string filePath = sound["filePath"];
+
+    audioManager->LoadSound(id, filePath);
+
+    index++;
+  }
+}
+
+void SceneLoader::LoadMusic(const sol::table& music
+  , std::unique_ptr<AudioManager>& audioManager) {
+  int index = 0;
+  while (true) {
+    sol::optional<sol::table> hasMusic = music[index];
+    if (hasMusic == sol::nullopt) {
+      break;
+    }
+
+    sol::table song = music[index];
+    std::string id = song["id"];
+    std::string filePath = song["filePath"];
+
+    audioManager->LoadMusic(id, filePath);
+
+    index++;
+  }
 }
 
 void SceneLoader::LoadFonts(const sol::table& fonts

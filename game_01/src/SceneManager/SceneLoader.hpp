@@ -10,6 +10,7 @@
 
 #include "../AnimationManager/AnimationManager.hpp"
 #include "../AssetManager/AssetManager.hpp"
+#include "../AudioManager/AudioManager.hpp"
 #include "../ControllerManager/ControllerManager.hpp"
 #include "../ECS/ECS.hpp"
 
@@ -25,6 +26,10 @@ class SceneLoader {
       , std::unique_ptr<AssetManager>& assetManager);
     void LoadAnimations(const sol::table& animations
       , std::unique_ptr<AnimationManager>& animationManager);
+    void LoadSoundEffects(const sol::table& sounds
+      , std::unique_ptr<AudioManager>& audioManager);
+    void LoadMusic(const sol::table& music
+      , std::unique_ptr<AudioManager>& audioManager);
     void LoadFonts(const sol::table& fonts
       , std::unique_ptr<AssetManager>& assetManager);
     void LoadKeys(const sol::table& keys
@@ -47,6 +52,7 @@ class SceneLoader {
     void LoadScene(const std::string& scenePath, sol::state& lua
       , std::unique_ptr<AnimationManager>& animationManager
       , std::unique_ptr<AssetManager>& assetManager
+      , std::unique_ptr<AudioManager>& audioManager
       , std::unique_ptr<ControllerManager>& controllerManager
       , std::unique_ptr<Registry>& registry, SDL_Renderer* renderer);
 };

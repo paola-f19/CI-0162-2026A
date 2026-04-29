@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 
 #include <memory>
@@ -10,6 +11,7 @@
 
 #include "../AnimationManager/AnimationManager.hpp"
 #include "../AssetManager/AssetManager.hpp"
+#include "../AudioManager/AudioManager.hpp"
 #include "../ControllerManager/ControllerManager.hpp"
 #include "../EventManager/EventManager.hpp"
 #include "../ECS/ECS.hpp"
@@ -34,6 +36,7 @@ class Game {
 
     std::unique_ptr<AnimationManager> animationManager;
     std::unique_ptr<AssetManager> assetManager;
+    std::unique_ptr<AudioManager> audioManager;
     std::unique_ptr<ControllerManager> controllerManager;
     std::unique_ptr<EventManager> eventManager;
     std::unique_ptr<Registry> registry;
