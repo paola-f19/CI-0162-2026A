@@ -14,6 +14,9 @@ struct RigidBodyComponent {
   float mass;
   float invMass;
 
+  bool collided = false;
+  glm::vec2 previousPosition;
+
   RigidBodyComponent(bool isDynamic = false, bool isSolid = false
     , float mass = 1) {
     this->isDynamic = isDynamic;

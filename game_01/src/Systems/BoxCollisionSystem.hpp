@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "../Components/BoxColliderComponent.hpp"
+#include "../Components/RigidBodyComponent.hpp"
 #include "../Components/ScriptComponent.hpp"
 #include "../Components/TransformComponent.hpp"
 #include "../ECS/ECS.hpp"
@@ -60,6 +61,14 @@ class BoxCollisionSystem : public System {
 
           if (collision) {
             eventManager->EmitEvent<CollisionEvent>(a, b);
+
+            if (a.HasComponent<RigidBodyComponent>()) {
+                a.GetComponent<RigidBodyComponent>().collided = true;
+            }
+
+            if (b.HasComponent<RigidBodyComponent>()) {
+                b.GetComponent<RigidBodyComponent>().collided = true;
+            }
 
             if (a.HasComponent<ScriptComponent>()) {
               const auto& script = a.GetComponent<ScriptComponent>();

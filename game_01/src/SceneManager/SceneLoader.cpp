@@ -22,6 +22,7 @@
 #include "../Components/TagComponent.hpp"
 #include "../Components/TextComponent.hpp"
 #include "../Components/TransformComponent.hpp"
+#include "../Components/WanderComponent.hpp"
 #include "../Game/Game.hpp"
 
 SceneLoader::SceneLoader() {
@@ -617,6 +618,19 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
         );
       }
       std::cout << "  [LOAD ENTITIES] loaded transform" << std::endl;
+
+      //* WanderComponent
+      sol::optional<sol::table> hasWander = components["wander"];
+      if (hasWander != sol::nullopt) {
+        newEntity.AddComponent<WanderComponent>(
+          glm::vec2(
+            components["wander"]["origin"]["x"],
+            components["wander"]["origin"]["y"]
+          ),
+          components["wander"]["radius"],
+          components["wander"]["speed"]
+        );
+      }
 
       //* ScriptComponent
       sol::optional<sol::table> hasScript = components["script"];

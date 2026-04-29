@@ -23,6 +23,7 @@
 #include "../Systems/RenderTextSystem.hpp"
 #include "../Systems/ScriptSystem.hpp"
 #include "../Systems/UISystem.hpp"
+#include "../Systems/WanderSystem.hpp"
 
 Game::Game() {
   std::cout << "[GAME] Se ejecuta constructor" << std::endl;
@@ -120,6 +121,7 @@ void Game::SetUp() {
   registry->AddSystem<RenderTextSystem>();
   registry->AddSystem<ScriptSystem>();
   registry->AddSystem<UISystem>();
+  registry->AddSystem<WanderSystem>();
 
   sceneManager->LoadSceneFromScript("./assets/scripts/scenes.lua", lua);
 
@@ -205,14 +207,14 @@ void Game::Update() {
   
   registry->GetSystem<PhysicsSystem>().Update();
   registry->GetSystem<MovementSystem>().Update(deltaTime);
+  registry->GetSystem<PatrolSystem>().Update(deltaTime);
+  registry->GetSystem<WanderSystem>().Update(deltaTime);
   registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
   registry->GetSystem<CircleCollisionSystem>().Update(eventManager);
   
   registry->GetSystem<LifetimeSystem>().Update(deltaTime);
   registry->GetSystem<HealthSystem>().Update(deltaTime);
   registry->GetSystem<AttackSystem>().Update(deltaTime);
-
-  registry->GetSystem<PatrolSystem>().Update(deltaTime);
 
   registry->GetSystem<AnimationSystem>().Update(animationManager);
   registry->GetSystem<CameraMovementSystem>().Update(camera);
