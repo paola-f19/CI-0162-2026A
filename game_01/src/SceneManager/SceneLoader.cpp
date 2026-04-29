@@ -12,6 +12,7 @@
 #include "../Components/DamageComponent.hpp"
 #include "../Components/DirectionComponent.hpp"
 #include "../Components/FactionComponent.hpp"
+#include "../Components/FollowComponent.hpp"
 #include "../Components/HealthBarComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/LayerComponent.hpp"
@@ -488,6 +489,15 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
       if (hasFaction != sol::nullopt) {
         std::string faction = components["faction"]["faction"];
         newEntity.AddComponent<FactionComponent>(faction);
+      }
+
+      //* FollowComponent
+      sol::optional<sol::table> hasFollow = components["follow"];
+      if (hasFollow != sol::nullopt) {
+        newEntity.AddComponent<FollowComponent>(
+          components["follow"]["speed"],
+          components["follow"]["detection_radius"]
+        );
       }
 
       //* HealthBarComponent

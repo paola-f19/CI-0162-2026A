@@ -10,6 +10,7 @@
 #include "../Systems/CameraMovementSystem.hpp"
 #include "../Systems/CircleCollisionSystem.hpp"
 #include "../Systems/DamageSystem.hpp"
+#include "../Systems/FollowSystem.hpp"
 #include "../Systems/HealthBarSystem.hpp"
 #include "../Systems/HealthSystem.hpp"
 #include "../Systems/LayerSystem.hpp"
@@ -18,6 +19,7 @@
 #include "../Systems/OverlapSystem.hpp"
 #include "../Systems/PatrolSystem.hpp"
 #include "../Systems/PhysicsSystem.hpp"
+#include "../Systems/PlayerSystem.hpp"
 #include "../Systems/RenderBoxColliderSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
 #include "../Systems/RenderTextSystem.hpp"
@@ -108,6 +110,7 @@ void Game::SetUp() {
   registry->AddSystem<CameraMovementSystem>();
   registry->AddSystem<CircleCollisionSystem>();
   registry->AddSystem<DamageSystem>();
+  registry->AddSystem<FollowSystem>();
   registry->AddSystem<HealthBarSystem>();
   registry->AddSystem<HealthSystem>();
   registry->AddSystem<LayerSystem>();
@@ -116,6 +119,7 @@ void Game::SetUp() {
   registry->AddSystem<OverlapSystem>();
   registry->AddSystem<PatrolSystem>();
   registry->AddSystem<PhysicsSystem>();
+  registry->AddSystem<PlayerSystem>();
   registry->AddSystem<RenderBoxColliderSystem>();
   registry->AddSystem<RenderSystem>();
   registry->AddSystem<RenderTextSystem>();
@@ -204,9 +208,14 @@ void Game::Update() {
   registry->Update();
 
   registry->GetSystem<ScriptSystem>().Update(lua, deltaTime);
-  
+
+  registry->GetSystem<PlayerSystem>().Update();
+  TransformComponent& playerTransform = 
+    registry->GetSystem<PlayerSystem>().GetPlayerTransform();
+
   registry->GetSystem<PhysicsSystem>().Update();
   registry->GetSystem<MovementSystem>().Update(deltaTime);
+  registry->GetSystem<FollowSystem>().Update(deltaTime, playerTransform);
   registry->GetSystem<PatrolSystem>().Update(deltaTime);
   registry->GetSystem<WanderSystem>().Update(deltaTime);
   registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
