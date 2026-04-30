@@ -12,6 +12,7 @@
 #include "../Components/SpriteComponent.hpp"
 #include "../Components/TextComponent.hpp"
 #include "../Components/TransformComponent.hpp"
+#include "../Components/UIComponent.hpp"
 #include "../ECS/ECS.hpp"
 #include "../EventManager/EventManager.hpp"
 #include "../Events/ClickEvent.hpp"
@@ -42,13 +43,23 @@ class UISystem : public System {
         const auto& transform = entity.GetComponent<TransformComponent>();
 
         // adjustments for camera and scale
-        int worldX = (e.posX / 2) + this->camera.x;
-        int worldY = (e.posY / 2) + this->camera.y;
+        // int worldX = (e.posX / 2) + this->camera.x;
+        // int worldY = (e.posY / 2) + this->camera.y;
 
-        if (transform.position.x < worldX
-          && worldX < transform.position.x + sprite.width
-          && transform.position.y < worldY
-          && worldY < transform.position.y + sprite.height) {
+        bool isUI = entity.HasComponent<UIComponent>();
+
+        int x = e.posX / 2;
+        int y = e.posY / 2;
+
+        if (!isUI) {
+          x += this->camera.x;
+          y += this->camera.y;
+        }
+
+        if (transform.position.x < x
+          && x < transform.position.x + sprite.width
+          && transform.position.y < y
+          && y < transform.position.y + sprite.height) {
           if (entity.HasComponent<ScriptComponent>()) {
             const auto& script = entity.GetComponent<ScriptComponent>();
             if (script.onClick != sol::nil) {

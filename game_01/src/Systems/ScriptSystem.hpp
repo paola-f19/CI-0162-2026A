@@ -47,6 +47,8 @@ class ScriptSystem : public System {
       lua.set_function("get_layer", GetLayer);
 
       lua.set_function("set_direction", SetDirection);
+
+      lua.set_function("toggle_pause", TogglePause);
     }
 
     void Update(sol::state& lua, double delta_time) {

@@ -114,6 +114,8 @@ int GetLayer(Entity entity) {
 void RemoveLayer(int z) {
   // std::cout << "[LUABINDING] entered RemoveLayer with z = " << z << std::endl;
   Game::GetInstance().registry->GetSystem<LayerSystem>().RemoveLayer(z);
+
+  // TODO maybe here incorporate the win condition being all extra layers removed?
 }
 
 //* RigidBodyComponent
@@ -183,6 +185,11 @@ std::tuple<int, int> GetSize(Entity entity) {
   int height = sprite.height * transform.scale.y;
 
   return {width, height};
+}
+
+//* UI
+void TogglePause() {
+  Game::GetInstance().isPaused = !Game::GetInstance().isPaused;
 }
 
 #endif  // LUABINDING_HPP

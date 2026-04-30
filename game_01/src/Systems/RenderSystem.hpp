@@ -6,6 +6,7 @@
 #include "../AssetManager/AssetManager.hpp"
 #include "../Components/SpriteComponent.hpp"
 #include "../Components/TransformComponent.hpp"
+#include "../Components/UIComponent.hpp"
 #include "../ECS/ECS.hpp"
 
 class RenderSystem : public System {
@@ -22,9 +23,17 @@ class RenderSystem : public System {
         const auto transform = entity.GetComponent<TransformComponent>();
 
         SDL_Rect srcRect = sprite.srcRect;
+
+        int renderX = transform.position.x + sprite.offset.x;
+        int renderY = transform.position.y + sprite.offset.y;
+        if (!entity.HasComponent<UIComponent>()) {
+          renderX -= camera.x;
+          renderY -= camera.y;
+        }
+
         SDL_Rect dstRect = {
-          static_cast<int>(transform.position.x + sprite.offset.x - camera.x),
-          static_cast<int>(transform.position.y + sprite.offset.y - camera.y),
+          static_cast<int>(renderX),
+          static_cast<int>(renderY),
           static_cast<int>(sprite.width * transform.scale.x),
           static_cast<int>(sprite.height * transform.scale.y)
         };

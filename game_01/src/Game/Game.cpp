@@ -213,29 +213,31 @@ void Game::Update() {
   registry->GetSystem<UISystem>().SubscribeToClickEvent(eventManager);
   registry->GetSystem<AttackSystem>().SubscribeToClickEvent(eventManager);
 
-  registry->Update();
+  if (!this->isPaused) {
+    registry->Update();
 
-  registry->GetSystem<ScriptSystem>().Update(lua, deltaTime);
+    registry->GetSystem<ScriptSystem>().Update(lua, deltaTime);
 
-  registry->GetSystem<PlayerSystem>().Update();
-  TransformComponent& playerTransform = 
-    registry->GetSystem<PlayerSystem>().GetPlayerTransform();
+    registry->GetSystem<PlayerSystem>().Update();
+    TransformComponent& playerTransform = 
+      registry->GetSystem<PlayerSystem>().GetPlayerTransform();
 
-  registry->GetSystem<PhysicsSystem>().Update();
-  registry->GetSystem<MovementSystem>().Update(deltaTime);
-  registry->GetSystem<FollowSystem>().Update(deltaTime, playerTransform);
-  registry->GetSystem<PatrolSystem>().Update(deltaTime);
-  registry->GetSystem<WanderSystem>().Update(deltaTime);
-  registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
-  registry->GetSystem<CircleCollisionSystem>().Update(eventManager);
-  
-  registry->GetSystem<LifetimeSystem>().Update(deltaTime);
-  registry->GetSystem<HealthSystem>().Update(deltaTime);
-  registry->GetSystem<AttackSystem>().Update(deltaTime);
+    registry->GetSystem<PhysicsSystem>().Update();
+    registry->GetSystem<MovementSystem>().Update(deltaTime);
+    registry->GetSystem<FollowSystem>().Update(deltaTime, playerTransform);
+    registry->GetSystem<PatrolSystem>().Update(deltaTime);
+    registry->GetSystem<WanderSystem>().Update(deltaTime);
+    registry->GetSystem<BoxCollisionSystem>().Update(eventManager, lua);
+    registry->GetSystem<CircleCollisionSystem>().Update(eventManager);
+    
+    registry->GetSystem<LifetimeSystem>().Update(deltaTime);
+    registry->GetSystem<HealthSystem>().Update(deltaTime);
+    registry->GetSystem<AttackSystem>().Update(deltaTime);
 
-  registry->GetSystem<AnimationSystem>().Update(animationManager);
-  registry->GetSystem<CameraMovementSystem>().Update(camera);
-  registry->GetSystem<UISystem>().Update(camera);
+    registry->GetSystem<AnimationSystem>().Update(animationManager);
+    registry->GetSystem<CameraMovementSystem>().Update(camera);
+    registry->GetSystem<UISystem>().Update(camera);
+  }
 }
 
 void Game::Render() {

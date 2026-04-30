@@ -23,6 +23,7 @@
 #include "../Components/TagComponent.hpp"
 #include "../Components/TextComponent.hpp"
 #include "../Components/TransformComponent.hpp"
+#include "../Components/UIComponent.hpp"
 #include "../Components/WanderComponent.hpp"
 #include "../Game/Game.hpp"
 
@@ -678,6 +679,12 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
         );
       }
       std::cout << "  [LOAD ENTITIES] loaded transform" << std::endl;
+
+      //* UIComponent
+      sol::optional<sol::table> hasUI = components["ui"];
+      if (hasUI != sol::nullopt) {
+        newEntity.AddComponent<UIComponent>();
+      }
 
       //* WanderComponent
       sol::optional<sol::table> hasWander = components["wander"];
