@@ -39,6 +39,11 @@ void ChangeAnimation(Entity entity, const std::string& animationId) {
   animation.startTime = SDL_GetTicks();
 }
 
+//* Audio
+void PlaySound(const std::string soundId) {
+  Game::GetInstance().audioManager->PlaySound(soundId);
+}
+
 //* Collisions
 
 bool LeftCollision(Entity e, Entity other) {

@@ -10,6 +10,7 @@
 #include "../ECS/ECS.hpp"
 #include "../EventManager/EventManager.hpp"
 #include "../Events/CollisionEvent.hpp"
+#include "../Game/Game.hpp"
 
 class DamageSystem : public System {
   private:
@@ -31,6 +32,11 @@ class DamageSystem : public System {
       if (health.invulnerableTime > 0.0f) return;
 
       health.currentHealth -= damage.damage;
+
+      // sound effect
+      // TODO: only for player? diff sound for others?
+      Game::GetInstance().audioManager->PlaySound("hurt");
+
       std::cout << "[DAMAGESYSTEM] " << damage.damage << " damage taken" << std::endl;
       health.invulnerableTime = 0.5f;
 

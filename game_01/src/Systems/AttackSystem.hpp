@@ -100,6 +100,9 @@ class AttackSystem : public System {
         attack.timeRemaining = attack.duration;
         attack.cooldownRemaining = attack.cooldown;
 
+        // sound effect
+        Game::GetInstance().audioManager->PlaySound("slash");
+
         // attack hitbox
         SpawnHitbox(entity, attack);
 
