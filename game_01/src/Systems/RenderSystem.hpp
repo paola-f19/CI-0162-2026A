@@ -38,6 +38,12 @@ class RenderSystem : public System {
           static_cast<int>(sprite.height * transform.scale.y)
         };
 
+        auto texture = assetManager->GetTexture(sprite.textureId);
+        if (!texture) {
+          std::cout << "[ERROR] Missing texture: " << sprite.textureId << std::endl;
+          continue;
+        }
+
         SDL_RenderCopyEx(
           renderer,
           assetManager->GetTexture(sprite.textureId),

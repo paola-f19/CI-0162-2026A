@@ -213,7 +213,7 @@ void Game::Update() {
   registry->GetSystem<UISystem>().SubscribeToClickEvent(eventManager);
   registry->GetSystem<AttackSystem>().SubscribeToClickEvent(eventManager);
 
-  if (!this->isPaused) {
+  if (!this->isPaused && !this->isGameOver) {
     registry->Update();
 
     registry->GetSystem<ScriptSystem>().Update(lua, deltaTime);

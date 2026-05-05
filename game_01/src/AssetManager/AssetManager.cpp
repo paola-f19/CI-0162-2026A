@@ -27,10 +27,20 @@ void AssetManager::ClearAssets() {
 void AssetManager::AddTexture(SDL_Renderer* renderer
   , const std::string& textureId, const std::string& filePath) {
   SDL_Surface* surface = IMG_Load(filePath.c_str());
+    if (!surface) {
+    std::cout << "[ERROR] Failed to load surface: " << filePath << std::endl;
+    return;
+  }
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+  if (!texture) {
+    std::cout << "[ERROR] Failed to create texture: " << filePath << std::endl;
+    return;
+  }
   SDL_FreeSurface(surface);
 
   textures.emplace(textureId, texture);
+
+  // std::cout << "[INFO] Loaded texture: " << textureId << std::endl;
 }
 
 SDL_Texture* AssetManager::GetTexture(const std::string& textureId) {
