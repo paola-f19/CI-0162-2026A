@@ -11,7 +11,7 @@
 #include "../Systems/CircleCollisionSystem.hpp"
 #include "../Systems/DamageSystem.hpp"
 #include "../Systems/FollowSystem.hpp"
-#include "../Systems/HealthBarSystem.hpp"
+#include "../Systems/BarSystem.hpp"
 #include "../Systems/HealthSystem.hpp"
 #include "../Systems/LayerSystem.hpp"
 #include "../Systems/LifetimeSystem.hpp"
@@ -23,6 +23,7 @@
 #include "../Systems/RenderBoxColliderSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
 #include "../Systems/RenderTextSystem.hpp"
+#include "../Systems/SanitySystem.hpp"
 #include "../Systems/ScriptSystem.hpp"
 #include "../Systems/UISystem.hpp"
 #include "../Systems/WanderSystem.hpp"
@@ -119,7 +120,7 @@ void Game::SetUp() {
   registry->AddSystem<CircleCollisionSystem>();
   registry->AddSystem<DamageSystem>();
   registry->AddSystem<FollowSystem>();
-  registry->AddSystem<HealthBarSystem>();
+  registry->AddSystem<BarSystem>();
   registry->AddSystem<HealthSystem>();
   registry->AddSystem<LayerSystem>();
   registry->AddSystem<LifetimeSystem>();
@@ -131,6 +132,7 @@ void Game::SetUp() {
   registry->AddSystem<RenderBoxColliderSystem>();
   registry->AddSystem<RenderSystem>();
   registry->AddSystem<RenderTextSystem>();
+  registry->AddSystem<SanitySystem>();
   registry->AddSystem<ScriptSystem>();
   registry->AddSystem<UISystem>();
   registry->AddSystem<WanderSystem>();
@@ -231,6 +233,7 @@ void Game::Update() {
     registry->GetSystem<CircleCollisionSystem>().Update(eventManager);
     
     registry->GetSystem<LifetimeSystem>().Update(deltaTime);
+    registry->GetSystem<SanitySystem>().Update(deltaTime);
     registry->GetSystem<HealthSystem>().Update(deltaTime);
     registry->GetSystem<AttackSystem>().Update(deltaTime);
 
@@ -246,7 +249,7 @@ void Game::Render() {
 
   registry->GetSystem<RenderSystem>().Update(renderer, camera, assetManager);
   registry->GetSystem<RenderTextSystem>().Update(renderer, assetManager);
-  registry->GetSystem<HealthBarSystem>().Update(renderer);
+  registry->GetSystem<BarSystem>().Update(renderer);
   registry->GetSystem<UISystem>().Update(camera);
 
   if (isDebugMode) {

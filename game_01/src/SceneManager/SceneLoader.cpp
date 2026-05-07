@@ -13,11 +13,12 @@
 #include "../Components/DirectionComponent.hpp"
 #include "../Components/FactionComponent.hpp"
 #include "../Components/FollowComponent.hpp"
-#include "../Components/HealthBarComponent.hpp"
+#include "../Components/BarComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/LayerComponent.hpp"
 #include "../Components/PatrolComponent.hpp"
 #include "../Components/RigidBodyComponent.hpp"
+#include "../Components/SanityComponent.hpp"
 #include "../Components/ScriptComponent.hpp"
 #include "../Components/SpriteComponent.hpp"
 #include "../Components/TagComponent.hpp"
@@ -551,24 +552,37 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
         );
       }
 
-      //* HealthBarComponent
-      sol::optional<sol::table> hasHealthBar = components["healthbar"];
-      if (hasHealthBar != sol::nullopt) {
-        SDL_Color fg = {components["healthbar"]["fgColor"]["r"]
-          , components["healthbar"]["fgColor"]["g"]
-          , components["healthbar"]["fgColor"]["b"]
-          , components["healthbar"]["fgColor"]["a"]
+      //* BarComponent
+      sol::optional<sol::table> hasBar = components["bar"];
+      if (hasBar != sol::nullopt) {
+        SDL_Color fg = {components["bar"]["fgColor"]["r"]
+          , components["bar"]["fgColor"]["g"]
+          , components["bar"]["fgColor"]["b"]
+          , components["bar"]["fgColor"]["a"]
         };
-        SDL_Color bg = {components["healthbar"]["bgColor"]["r"]
-          , components["healthbar"]["bgColor"]["g"]
-          , components["healthbar"]["bgColor"]["b"]
-          , components["healthbar"]["bgColor"]["a"]
+        SDL_Color bg = {components["bar"]["bgColor"]["r"]
+          , components["bar"]["bgColor"]["g"]
+          , components["bar"]["bgColor"]["b"]
+          , components["bar"]["bgColor"]["a"]
         };
-        newEntity.AddComponent<HealthBarComponent>(
-          components["healthbar"]["width"],
-          components["healthbar"]["height"],
-          fg, bg
+
+        std::string typeString = components["bar"]["type"];
+        BarType type;
+        if (typeString == "health") {
+          type = BarType::HEALTH;
+        }
+        else if (typeString == "sanity") {
+          type = BarType::SANITY;
+        }
+
+        newEntity.AddComponent<BarComponent>(
+          components["bar"]["width"],
+          components["bar"]["height"],
+          components["bar"]["posX"],
+          components["bar"]["posY"],
+          fg, bg, type
         );
+        std::cout << "  [LOAD ENTITIES] loaded bar" << std::endl;
       }
 
       //* HealthComponent
@@ -623,6 +637,16 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
         );
       }
       std::cout << "  [LOAD ENTITIES] loaded rigidbody" << std::endl;
+
+      //* SanityComponent
+      sol::optional<sol::table> hasSanity = components["sanity"];
+      if (hasSanity != sol::nullopt) {
+        newEntity.AddComponent<SanityComponent>(
+          components["sanity"]["maxSanity"],
+          components["sanity"]["currentSanity"],
+          components["sanity"]["drain"]
+        );
+      }
 
       //* SpriteComponent
       sol::optional<sol::table> hasSprite = components["sprite"];
