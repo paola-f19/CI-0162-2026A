@@ -23,6 +23,7 @@
 #include "../Systems/RenderBoxColliderSystem.hpp"
 #include "../Systems/RenderSystem.hpp"
 #include "../Systems/RenderTextSystem.hpp"
+#include "../Systems/RenderUISystem.hpp"
 #include "../Systems/SanitySystem.hpp"
 #include "../Systems/ScriptSystem.hpp"
 #include "../Systems/UISystem.hpp"
@@ -132,6 +133,7 @@ void Game::SetUp() {
   registry->AddSystem<RenderBoxColliderSystem>();
   registry->AddSystem<RenderSystem>();
   registry->AddSystem<RenderTextSystem>();
+  registry->AddSystem<RenderUISystem>();
   registry->AddSystem<SanitySystem>();
   registry->AddSystem<ScriptSystem>();
   registry->AddSystem<UISystem>();
@@ -248,6 +250,7 @@ void Game::Render() {
   SDL_RenderClear(renderer);
 
   registry->GetSystem<RenderSystem>().Update(renderer, camera, assetManager);
+  registry->GetSystem<RenderUISystem>().Update(renderer);
   registry->GetSystem<RenderTextSystem>().Update(renderer, assetManager);
   registry->GetSystem<BarSystem>().Update(renderer);
   registry->GetSystem<UISystem>().Update(camera);

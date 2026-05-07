@@ -9,6 +9,7 @@
 #include "../AssetManager/AssetManager.hpp"
 #include "../Components/TextComponent.hpp"
 #include "../Components/TransformComponent.hpp"
+#include "../Components/UIRectComponent.hpp"
 #include "../ECS/ECS.hpp"
 
 class RenderTextSystem : public System {
@@ -31,9 +32,31 @@ class RenderTextSystem : public System {
         SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
         SDL_FreeSurface(surface);
 
+        // Default text position
+        int renderX = static_cast<int>(transform.position.x);
+        int renderY = static_cast<int>(transform.position.y);
+
+        // Center text if entity has a UI rectangle
+        if (entity.HasComponent<UIRectComponent>()) {
+
+          auto& rect = entity.GetComponent<UIRectComponent>();
+
+          int scaledTextWidth = text.width 
+            * static_cast<int>(transform.scale.x);
+
+          int scaledTextHeight = text.height 
+            * static_cast<int>(transform.scale.y);
+
+          renderX = static_cast<int>(transform.position.x)
+            + (rect.width - scaledTextWidth) / 2;
+
+          renderY = static_cast<int>(transform.position.y)
+            + (rect.height - scaledTextHeight) / 2;
+        }
+
         SDL_Rect dstRect = {
-          static_cast<int>(transform.position.x),
-          static_cast<int>(transform.position.y),
+          renderX,
+          renderY,
           text.width * static_cast<int>(transform.scale.x),
           text.height * static_cast<int>(transform.scale.y),
         };

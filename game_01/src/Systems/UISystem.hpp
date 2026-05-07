@@ -13,6 +13,7 @@
 #include "../Components/TextComponent.hpp"
 #include "../Components/TransformComponent.hpp"
 #include "../Components/UIComponent.hpp"
+#include "../Components/UIRectComponent.hpp"
 #include "../ECS/ECS.hpp"
 #include "../EventManager/EventManager.hpp"
 #include "../Events/ClickEvent.hpp"
@@ -23,8 +24,6 @@ class UISystem : public System {
 
     UISystem() {
       RequireComponent<ClickableComponent>();
-      RequireComponent<SpriteComponent>();
-      // RequireComponent<TextComponent>();
       RequireComponent<TransformComponent>();
     }
 
@@ -39,13 +38,26 @@ class UISystem : public System {
 
     void OnClickEvent(ClickEvent& e) {
       for (auto entity : GetSystemEntities()) {
-        const auto& sprite = entity.GetComponent<SpriteComponent>();
         const auto& transform = entity.GetComponent<TransformComponent>();
 
-        // adjustments for camera and scale
-        // int worldX = (e.posX / 2) + this->camera.x;
-        // int worldY = (e.posY / 2) + this->camera.y;
+        int width = 0;
+        int height = 0;
 
+        if (entity.HasComponent<SpriteComponent>()) {
+          const auto& sprite = entity.GetComponent<SpriteComponent>();
+          width = sprite.width;
+          height = sprite.height;
+        }
+        else if (entity.HasComponent<UIRectComponent>()) {
+          const auto& rect = entity.GetComponent<UIRectComponent>();
+          width = rect.width;
+          height = rect.height;
+        }
+        else {
+          continue;
+        }
+
+        // adjustments for camera and scale
         bool isUI = entity.HasComponent<UIComponent>();
 
         int x = e.posX / 2;
@@ -57,9 +69,9 @@ class UISystem : public System {
         }
 
         if (transform.position.x < x
-          && x < transform.position.x + sprite.width
+          && x < transform.position.x + width
           && transform.position.y < y
-          && y < transform.position.y + sprite.height) {
+          && y < transform.position.y + height) {
           if (entity.HasComponent<ScriptComponent>()) {
             const auto& script = entity.GetComponent<ScriptComponent>();
             if (script.onClick != sol::nil) {
