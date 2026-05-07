@@ -115,7 +115,12 @@ void RemoveLayer(int z) {
   // std::cout << "[LUABINDING] entered RemoveLayer with z = " << z << std::endl;
   Game::GetInstance().registry->GetSystem<LayerSystem>().RemoveLayer(z);
 
-  // TODO maybe here incorporate the win condition being all extra layers removed?
+  Game::GetInstance().buttonCount--;
+  if (Game::GetInstance().buttonCount <= 0) {
+    // win
+    Game::GetInstance().sceneManager->SetNextScene("win");
+    Game::GetInstance().sceneManager->StopScene();
+  }
 }
 
 //* RigidBodyComponent

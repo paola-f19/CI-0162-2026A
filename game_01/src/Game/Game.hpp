@@ -45,6 +45,7 @@ class Game {
 
     bool isPaused = false;
     bool isGameOver = false;
+    int buttonCount = 2;
 
     int windowWidth = 0;
     int windowHeight = 0;
