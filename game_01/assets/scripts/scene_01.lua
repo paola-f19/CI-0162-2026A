@@ -120,6 +120,8 @@ scene = {
     {id = "slash", filePath = "./assets/audio/Slash.wav"},
     {id = "hurt", filePath = "./assets/audio/Impact2.wav"},
     {id = "restore", filePath = "./assets/audio/Strange.wav"},
+    {id = "gameOver", filePath = "./assets/audio/GameOver.wav"},
+    {id = "win", filePath = "./assets/audio/Success3.wav"},
   },
 
   -- Tabla de musica

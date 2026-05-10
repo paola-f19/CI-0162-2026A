@@ -44,6 +44,7 @@ void AudioManager::LoadMusic(const std::string& id, const std::string& path) {
 
 void AudioManager::PlaySound(const std::string& id) {
   Mix_PlayChannel(-1, sounds[id], 0);
+  std::cout << "[AUDIOMANAGER] played sound " << id << std::endl;
 }
 
 void AudioManager::PlayMusic(const std::string& id) {

@@ -124,7 +124,7 @@ scene = {
   -- Tabla de musica
   music = {
     [0] = 
-    {id = "bgMusic", filePath = "./assets/audio/CalmVillage.ogg"}
+    {id = "bgMusic", filePath = "./assets/audio/Village.ogg"}
   },
 
   -- Tabla de fuentes

@@ -16,10 +16,7 @@ scene = {
   },
 
   -- Tabla de musica
-  music = {
-    [0] = 
-    {id = "bgMusic", filePath = "./assets/audio/CalmVillage.ogg"}
-  },
+  music = {},
 
   -- Tabla de fuentes
   fonts = {
