@@ -880,6 +880,7 @@ scene = {
         },
       },
     },
+    -- Sanity bar
     {
       components = {
         bar = {
