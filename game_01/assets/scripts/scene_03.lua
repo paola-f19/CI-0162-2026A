@@ -8,6 +8,8 @@ scene = {
     {assetId = "0_snowy_props", filePath = "./assets/images/snowy_props.png"},
     {assetId = "1_green", filePath = "./assets/images/green.png"},
     {assetId = "1_green_props", filePath = "./assets/images/green_props.png"},
+    {assetId = "2_cozy", filePath = "./assets/images/cozy.png"},
+    {assetId = "2_cozy_props", filePath = "./assets/images/cozy_props.png"},
     {assetId = "player", filePath = "./assets/images/player.png"},
     {assetId = "cat", filePath = "./assets/images/cat.png"},
     {assetId = "skull", filePath = "./assets/images/skull.png"},
@@ -155,6 +157,8 @@ scene = {
       {name = "0_snowy_props", path = "./assets/maps/snowy_props.tsx"},
       {name = "1_green", path = "./assets/maps/green.tsx"},
       {name = "1_green_props", path = "./assets/maps/green_props.tsx"},
+      {name = "2_cozy", path = "./assets/maps/cozy.tsx"},
+      {name = "2_cozy_props", path = "./assets/maps/cozy_props.tsx"},
     },
   },
 

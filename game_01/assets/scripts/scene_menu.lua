@@ -141,7 +141,7 @@ scene = {
       components = {
         clickable = {},
         script = {
-          path = "./assets/scripts/menu_button_01.lua",
+          path = "./assets/scripts/menu_button_03.lua",
         },
         text = {
           text = "Level 03",
