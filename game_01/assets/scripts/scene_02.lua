@@ -261,7 +261,7 @@ scene = {
         },
       }
     },
-    -- Denizen 01
+    -- Denizen 01 - 1
     {
       components = {
         box_collider = {
@@ -295,152 +295,152 @@ scene = {
           tag = "Denizen 01",
         },
         transform = {
-          position = { x = 220.0, y = 180.0 },
+          position = { x = 1360.0, y = 300.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
         wander = {
-          origin = { x = 230.0, y = 330.0 },
+          origin = { x = 1360.0, y = 300.0 },
           radius = 300.0,
           speed = 50,
         },
       },
     },
-    -- -- Denizen 01
-    -- {
-    --   components = {
-    --     box_collider = {
-    --       width = 16,
-    --       height = 16,
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     damage = {
-    --       damage = 10,
-    --     },
-    --     faction = {
-    --       faction = "enemy",
-    --     },
-    --     health = {
-    --       maxHealth = 30;
-    --       currentHealth = 30;
-    --     },
-    --     rigid_body = {
-    --       is_dynamic = false,
-    --       is_solid = false,
-    --       mass = 1,
-    --     },
-    --     sprite = {
-    --       assetId = "cat",
-    --       width = 16,
-    --       height = 16,
-    --       src_rect = { x = 16, y = 16 },
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     tag = {
-    --       tag = "Denizen 01",
-    --     },
-    --     transform = {
-    --       position = { x = 850.0, y = 580.0 },
-    --       scale = { x = 1.0, y = 1.0 },
-    --       rotation = 0.0,
-    --     },
-    --     wander = {
-    --       origin = { x = 850.0, y = 580.0 },
-    --       radius = 300.0,
-    --       speed = 50,
-    --     },
-    --   },
-    -- },
-    -- -- Denizen 01
-    -- {
-    --   components = {
-    --     box_collider = {
-    --       width = 16,
-    --       height = 16,
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     damage = {
-    --       damage = 10,
-    --     },
-    --     faction = {
-    --       faction = "enemy",
-    --     },
-    --     health = {
-    --       maxHealth = 30;
-    --       currentHealth = 30;
-    --     },
-    --     rigid_body = {
-    --       is_dynamic = false,
-    --       is_solid = false,
-    --       mass = 1,
-    --     },
-    --     sprite = {
-    --       assetId = "cat",
-    --       width = 16,
-    --       height = 16,
-    --       src_rect = { x = 16, y = 16 },
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     tag = {
-    --       tag = "Denizen 01",
-    --     },
-    --     transform = {
-    --       position = { x = 775.0, y = 775.0 },
-    --       scale = { x = 1.0, y = 1.0 },
-    --       rotation = 0.0,
-    --     },
-    --     wander = {
-    --       origin = { x = 985.0, y = 775.0 },
-    --       radius = 300.0,
-    --       speed = 50,
-    --     },
-    --   },
-    -- },
-    -- -- Denizen 01
-    -- {
-    --   components = {
-    --     box_collider = {
-    --       width = 16,
-    --       height = 16,
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     damage = {
-    --       damage = 10,
-    --     },
-    --     faction = {
-    --       faction = "enemy",
-    --     },
-    --     health = {
-    --       maxHealth = 30;
-    --       currentHealth = 30;
-    --     },
-    --     rigid_body = {
-    --       is_dynamic = false,
-    --       is_solid = false,
-    --       mass = 1,
-    --     },
-    --     sprite = {
-    --       assetId = "cat",
-    --       width = 16,
-    --       height = 16,
-    --       src_rect = { x = 16, y = 16 },
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     tag = {
-    --       tag = "Denizen 01",
-    --     },
-    --     transform = {
-    --       position = { x = 345.0, y = 715.0 },
-    --       scale = { x = 1.0, y = 1.0 },
-    --       rotation = 0.0,
-    --     },
-    --     wander = {
-    --       origin = { x = 345.0, y = 715.0 },
-    --       radius = 300.0,
-    --       speed = 50,
-    --     },
-    --   },
-    -- },
+    -- Denizen 01 - 2
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        damage = {
+          damage = 10,
+        },
+        faction = {
+          faction = "enemy",
+        },
+        health = {
+          maxHealth = 30;
+          currentHealth = 30;
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 1,
+        },
+        sprite = {
+          assetId = "dungeon_char",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 32 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "Denizen 01",
+        },
+        transform = {
+          position = { x = 240.0, y = 600.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        wander = {
+          origin = { x = 240.0, y = 600.0 },
+          radius = 300.0,
+          speed = 50,
+        },
+      },
+    },
+    -- Denizen 01 - 3
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        damage = {
+          damage = 10,
+        },
+        faction = {
+          faction = "enemy",
+        },
+        health = {
+          maxHealth = 30;
+          currentHealth = 30;
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 1,
+        },
+        sprite = {
+          assetId = "dungeon_char",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 32 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "Denizen 01",
+        },
+        transform = {
+          position = { x = 480.0, y = 700.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        wander = {
+          origin = { x = 480.0, y = 700.0 },
+          radius = 300.0,
+          speed = 50,
+        },
+      },
+    },
+    -- Denizen 01 - 4
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        damage = {
+          damage = 10,
+        },
+        faction = {
+          faction = "enemy",
+        },
+        health = {
+          maxHealth = 30;
+          currentHealth = 30;
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 1,
+        },
+        sprite = {
+          assetId = "dungeon_char",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 32 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "Denizen 01",
+        },
+        transform = {
+          position = { x = 900.0, y = 780.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        wander = {
+          origin = { x = 900.0, y = 780.0 },
+          radius = 300.0,
+          speed = 50,
+        },
+      },
+    },
     -- Enemy 01
     {
       components = {
@@ -479,145 +479,145 @@ scene = {
           tag = "Enemy 01",
         },
         transform = {
-          position = { x = 300.0, y = 200.0 },
+          position = { x = 1370.0, y = 880.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
       },
     },
-    -- -- Enemy 01
-    -- {
-    --   components = {
-    --     box_collider = {
-    --       width = 16,
-    --       height = 16,
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     damage = {
-    --       damage = 10,
-    --     },
-    --     faction = {
-    --       faction = "enemy",
-    --     },
-    --     follow = {
-    --       speed = 50,
-    --       detection_radius = 100,
-    --     },
-    --     health = {
-    --       maxHealth = 30;
-    --       currentHealth = 30;
-    --     },
-    --     rigid_body = {
-    --       is_dynamic = false,
-    --       is_solid = false,
-    --       mass = 1,
-    --     },
-    --     sprite = {
-    --       assetId = "skull",
-    --       width = 16,
-    --       height = 16,
-    --       src_rect = { x = 0, y = 0 },
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     tag = {
-    --       tag = "Enemy 01",
-    --     },
-    --     transform = {
-    --       position = { x = 1045.0, y = 570.0 },
-    --       scale = { x = 1.0, y = 1.0 },
-    --       rotation = 0.0,
-    --     },
-    --   },
-    -- },
-    -- -- Enemy 01
-    -- {
-    --   components = {
-    --     box_collider = {
-    --       width = 16,
-    --       height = 16,
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     damage = {
-    --       damage = 10,
-    --     },
-    --     faction = {
-    --       faction = "enemy",
-    --     },
-    --     follow = {
-    --       speed = 50,
-    --       detection_radius = 100,
-    --     },
-    --     health = {
-    --       maxHealth = 30;
-    --       currentHealth = 30;
-    --     },
-    --     rigid_body = {
-    --       is_dynamic = false,
-    --       is_solid = false,
-    --       mass = 1,
-    --     },
-    --     sprite = {
-    --       assetId = "skull",
-    --       width = 16,
-    --       height = 16,
-    --       src_rect = { x = 0, y = 0 },
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     tag = {
-    --       tag = "Enemy 01",
-    --     },
-    --     transform = {
-    --       position = { x = 1060.0, y = 920.0 },
-    --       scale = { x = 1.0, y = 1.0 },
-    --       rotation = 0.0,
-    --     },
-    --   },
-    -- },
-    -- -- Enemy 01
-    -- {
-    --   components = {
-    --     box_collider = {
-    --       width = 16,
-    --       height = 16,
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     damage = {
-    --       damage = 10,
-    --     },
-    --     faction = {
-    --       faction = "enemy",
-    --     },
-    --     follow = {
-    --       speed = 50,
-    --       detection_radius = 100,
-    --     },
-    --     health = {
-    --       maxHealth = 30;
-    --       currentHealth = 30;
-    --     },
-    --     rigid_body = {
-    --       is_dynamic = false,
-    --       is_solid = false,
-    --       mass = 1,
-    --     },
-    --     sprite = {
-    --       assetId = "skull",
-    --       width = 16,
-    --       height = 16,
-    --       src_rect = { x = 0, y = 0 },
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     tag = {
-    --       tag = "Enemy 01",
-    --     },
-    --     transform = {
-    --       position = { x = 480.0, y = 1000.0 },
-    --       scale = { x = 1.0, y = 1.0 },
-    --       rotation = 0.0,
-    --     },
-    --   },
-    -- },
-    -- Enemy 02
+    -- Enemy 01 - 2
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        damage = {
+          damage = 10,
+        },
+        faction = {
+          faction = "enemy",
+        },
+        follow = {
+          speed = 50,
+          detection_radius = 100,
+        },
+        health = {
+          maxHealth = 30;
+          currentHealth = 30;
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 1,
+        },
+        sprite = {
+          assetId = "cyclope",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "Enemy 01",
+        },
+        transform = {
+          position = { x = 410.0, y = 240.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Enemy 01 - 3
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        damage = {
+          damage = 10,
+        },
+        faction = {
+          faction = "enemy",
+        },
+        follow = {
+          speed = 50,
+          detection_radius = 100,
+        },
+        health = {
+          maxHealth = 30;
+          currentHealth = 30;
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 1,
+        },
+        sprite = {
+          assetId = "cyclope",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "Enemy 01",
+        },
+        transform = {
+          position = { x = 1190.0, y = 660.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Enemy 01 - 4
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        damage = {
+          damage = 10,
+        },
+        faction = {
+          faction = "enemy",
+        },
+        follow = {
+          speed = 50,
+          detection_radius = 100,
+        },
+        health = {
+          maxHealth = 30;
+          currentHealth = 30;
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 1,
+        },
+        sprite = {
+          assetId = "cyclope",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "Enemy 01",
+        },
+        transform = {
+          position = { x = 500.0, y = 930.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Enemy 02 - 1
     {
       components = {
         box_collider = {
@@ -667,156 +667,156 @@ scene = {
         },
       },
     },
-    -- -- Enemy 02
-    -- {
-    --   components = {
-    --     box_collider = {
-    --       width = 16,
-    --       height = 16,
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     damage = {
-    --       damage = 10,
-    --     },
-    --     faction = {
-    --       faction = "enemy",
-    --     },
-    --     health = {
-    --       maxHealth = 30;
-    --       currentHealth = 30;
-    --     },
-    --     patrol = {
-    --         speed = 50,
-    --         waypoints = {
-    --           [0] =
-    --           { x = 840, y = 830 },
-    --           { x = 950, y = 830 },
-    --           { x = 950, y = 920 },
-    --           { x = 840, y = 920 },
-    --         },
-    --     },
-    --     rigid_body = {
-    --       is_dynamic = false,
-    --       is_solid = false,
-    --       mass = 1,
-    --     },
-    --     sprite = {
-    --       assetId = "beast",
-    --       width = 16,
-    --       height = 16,
-    --       src_rect = { x = 0, y = 0 },
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     tag = {
-    --       tag = "Enemy 02",
-    --     },
-    --     transform = {
-    --       position = { x = 840.0, y = 830.0 },
-    --       scale = { x = 1.0, y = 1.0 },
-    --       rotation = 0.0,
-    --     },
-    --   },
-    -- },
-    -- -- Enemy 02
-    -- {
-    --   components = {
-    --     box_collider = {
-    --       width = 16,
-    --       height = 16,
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     damage = {
-    --       damage = 10,
-    --     },
-    --     faction = {
-    --       faction = "enemy",
-    --     },
-    --     health = {
-    --       maxHealth = 30;
-    --       currentHealth = 30;
-    --     },
-    --     patrol = {
-    --         speed = 50,
-    --         waypoints = {
-    --           [0] =
-    --           { x = 1220, y = 700 },
-    --           { x = 1370, y = 700 },
-    --           { x = 1370, y = 750 },
-    --           { x = 1220, y = 750 },
-    --         },
-    --     },
-    --     rigid_body = {
-    --       is_dynamic = false,
-    --       is_solid = false,
-    --       mass = 1,
-    --     },
-    --     sprite = {
-    --       assetId = "beast",
-    --       width = 16,
-    --       height = 16,
-    --       src_rect = { x = 0, y = 0 },
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     tag = {
-    --       tag = "Enemy 02",
-    --     },
-    --     transform = {
-    --       position = { x = 1220.0, y = 700.0 },
-    --       scale = { x = 1.0, y = 1.0 },
-    --       rotation = 0.0,
-    --     },
-    --   },
-    -- },
-    -- -- Enemy 02
-    -- {
-    --   components = {
-    --     box_collider = {
-    --       width = 16,
-    --       height = 16,
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     damage = {
-    --       damage = 10,
-    --     },
-    --     faction = {
-    --       faction = "enemy",
-    --     },
-    --     health = {
-    --       maxHealth = 30;
-    --       currentHealth = 30;
-    --     },
-    --     patrol = {
-    --         speed = 50,
-    --         waypoints = {
-    --           [0] =
-    --           { x = 450, y = 700 },
-    --           { x = 650, y = 700 },
-    --           { x = 650, y = 750 },
-    --           { x = 450, y = 750 },
-    --         },
-    --     },
-    --     rigid_body = {
-    --       is_dynamic = false,
-    --       is_solid = false,
-    --       mass = 1,
-    --     },
-    --     sprite = {
-    --       assetId = "beast",
-    --       width = 16,
-    --       height = 16,
-    --       src_rect = { x = 0, y = 0 },
-    --       offset = { x = 0, y = 0 },
-    --     },
-    --     tag = {
-    --       tag = "Enemy 02",
-    --     },
-    --     transform = {
-    --       position = { x = 450.0, y = 700.0 },
-    --       scale = { x = 1.0, y = 1.0 },
-    --       rotation = 0.0,
-    --     },
-    --   },
-    -- },
+    -- Enemy 02 - 2
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        damage = {
+          damage = 10,
+        },
+        faction = {
+          faction = "enemy",
+        },
+        health = {
+          maxHealth = 30;
+          currentHealth = 30;
+        },
+        patrol = {
+            speed = 50,
+            waypoints = {
+              [0] =
+              { x = 540, y = 1140 },
+              { x = 960, y = 1140 },
+              { x = 960, y = 1190 },
+              { x = 540, y = 1190 },
+            },
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 1,
+        },
+        sprite = {
+          assetId = "red_beast",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "Enemy 02",
+        },
+        transform = {
+          position = { x = 540.0, y = 1140.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Enemy 02 - 3
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        damage = {
+          damage = 10,
+        },
+        faction = {
+          faction = "enemy",
+        },
+        health = {
+          maxHealth = 30;
+          currentHealth = 30;
+        },
+        patrol = {
+            speed = 50,
+            waypoints = {
+              [0] =
+              { x = 600, y = 375 },
+              { x = 960, y = 375 },
+              { x = 960, y = 410 },
+              { x = 600, y = 410 },
+            },
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 1,
+        },
+        sprite = {
+          assetId = "red_beast",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "Enemy 02",
+        },
+        transform = {
+          position = { x = 600.0, y = 375.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Enemy 02 - 4
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        damage = {
+          damage = 10,
+        },
+        faction = {
+          faction = "enemy",
+        },
+        health = {
+          maxHealth = 30;
+          currentHealth = 30;
+        },
+        patrol = {
+            speed = 50,
+            waypoints = {
+              [0] =
+              { x = 670, y = 990 },
+              { x = 915, y = 990 },
+              { x = 915, y = 1020 },
+              { x = 670, y = 1020 },
+            },
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = false,
+          mass = 1,
+        },
+        sprite = {
+          assetId = "red_beast",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "Enemy 02",
+        },
+        transform = {
+          position = { x = 670.0, y = 1000.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
     -- Player
     -- last on the list so it renders on top of all other entities
     {
