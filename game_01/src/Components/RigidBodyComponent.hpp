@@ -3,6 +3,9 @@
 
 #include <glm/glm.hpp>
 
+/**
+ * @brief Defines the properties of an entities rigidbody.
+ */
 struct RigidBodyComponent {
   bool isDynamic;
   bool isSolid;
@@ -17,6 +20,13 @@ struct RigidBodyComponent {
   bool collided = false;
   glm::vec2 previousPosition;
 
+  /**
+   * @brief Constructor.
+   *
+   * @param isDynamic True if dynamic, false otherwise.
+   * @param isSolid True if solid, false otherwise.
+   * @param mass Weight of the entity.
+   */
   RigidBodyComponent(bool isDynamic = false, bool isSolid = false
     , float mass = 1) {
     this->isDynamic = isDynamic;

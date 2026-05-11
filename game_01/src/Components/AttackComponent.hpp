@@ -1,6 +1,9 @@
 #ifndef ATTACKCOMPONENT_HPP
 #define ATTACKCOMPONENT_HPP
 
+/**
+ * @brief Stores the information of an attack.
+ */
 struct AttackComponent {
   int damage;
   float range;   // how far the attack reaches
@@ -12,6 +15,14 @@ struct AttackComponent {
 
   bool isAttacking = false;
 
+  /**
+   * @brief Constructor.
+   *
+   * @param damage Damage of atack.
+   * @param range Range of attack.
+   * @param duration Duration of attack.
+   * @param cooldown Cooldown of attack.
+   */
   AttackComponent(int damage = 0, float range = 0.0f, float duration = 0.0f
     , float cooldown = 0.0f) {
     this->damage = damage;

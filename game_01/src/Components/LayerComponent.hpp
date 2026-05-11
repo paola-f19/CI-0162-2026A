@@ -1,12 +1,19 @@
 #ifndef LAYERCOMPONENT_HPP
 #define LAYERCOMPONENT_HPP
 
+/**
+ * @brief Defines the layer to which the entity belongs.
+ */
 struct LayerComponent {
   int z;
 
+  /**
+   * @brief Constructor.
+   *
+   * @param layer Layer where the entity exists.
+   */
   LayerComponent(int layer = 0) {
     this->z = layer;
-    // std::cout << "[LAYERCOMPONENT] created layer with z = " << layer << std::endl;
   }
 };
 

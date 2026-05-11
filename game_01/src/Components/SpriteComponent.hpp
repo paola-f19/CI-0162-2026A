@@ -6,6 +6,9 @@
 
 #include <string>
 
+/**
+ * @brief Defines the properties of the sprite of an entity.
+ */
 struct SpriteComponent {
   std::string textureId;
   int width;
@@ -14,6 +17,16 @@ struct SpriteComponent {
   glm::vec2 offset;
   bool flip = false;
 
+  /**
+   * @brief Constructor.
+   *
+   * @param textureId Id of the texture.
+   * @param width Width of sprite.
+   * @param height Height of sprite.
+   * @param srcRectX Source rectangle x.
+   * @param srcRectY Source rectangle y.
+   * @param offset Offset of image.
+   */
   SpriteComponent(const std::string& textureId = "none", int width = 0
     , int height = 0, int srcRectX = 0, int srcRectY = 0
     , glm::vec2 offset = glm::vec2(0)) {
