@@ -249,10 +249,12 @@ void Game::Render() {
   SDL_SetRenderDrawColor(renderer, 31, 31, 31, 255);
   SDL_RenderClear(renderer);
 
+  Entity player = registry->GetSystem<PlayerSystem>().GetPlayer();
+
   registry->GetSystem<RenderSystem>().Update(renderer, camera, assetManager);
   registry->GetSystem<RenderUISystem>().Update(renderer);
   registry->GetSystem<RenderTextSystem>().Update(renderer, assetManager);
-  registry->GetSystem<BarSystem>().Update(renderer);
+  registry->GetSystem<BarSystem>().Update(renderer, player);
   registry->GetSystem<UISystem>().Update(camera);
 
   if (isDebugMode) {

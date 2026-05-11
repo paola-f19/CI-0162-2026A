@@ -836,15 +836,6 @@ scene = {
           height = 10,
           offset = { x = 4, y = 12 },
         },
-        bar = {
-          width = 100,
-          height = 10,
-          posX = 10,
-          posY = 10,
-          fgColor = { r = 0, g = 255, b = 0, a = 255 },
-          bgColor = { r = 60, g = 60, b = 60, a = 255 },
-          type = "health"
-        }, 
         health = {
           maxHealth = 100,
           currentHealth = 100,
@@ -857,6 +848,11 @@ scene = {
           is_dynamic = false,
           is_solid = true,
           mass = 10,
+        },
+        sanity = {
+          maxSanity = 60,
+          currentSanity = 60,
+          drain = 1,
         },
         script = {
           path = "./assets/scripts/player.lua",
@@ -878,24 +874,33 @@ scene = {
         },
       },
     },
+    -- Health bar
+    {
+      components = {
+        bar = {
+          width = 100,
+          height = 10,
+          posX = 10,
+          posY = 10,
+          fgColor = { r = 0, g = 255, b = 0, a = 255 },
+          bgColor = { r = 60, g = 60, b = 60, a = 255 },
+          type = "health"
+        },  
+      }
+    },
     -- Sanity bar
-    -- {
-    --   components = {
-    --     bar = {
-    --       width = 100,
-    --       height = 10,
-    --       posX = 10,
-    --       posY = 25,
-    --       fgColor = { r = 100, g = 149, b = 237, a = 255 },
-    --       bgColor = { r = 60, g = 60, b = 60, a = 255 },
-    --       type = "sanity"
-    --     }, 
-    --     sanity = {
-    --       maxSanity = 60,
-    --       currentSanity = 60,
-    --       drain = 1,
-    --     },
-    --   }
-    -- },
+    {
+      components = {
+        bar = {
+          width = 100,
+          height = 10,
+          posX = 10,
+          posY = 25,
+          fgColor = { r = 100, g = 149, b = 237, a = 255 },
+          bgColor = { r = 60, g = 60, b = 60, a = 255 },
+          type = "sanity"
+        }, 
+      },
+    },
   },
 }

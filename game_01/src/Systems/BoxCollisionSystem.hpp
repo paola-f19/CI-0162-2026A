@@ -1,11 +1,16 @@
 #ifndef BOXCOLLISIONSYSTEM_HPP
 #define BOXCOLLISIONSYSTEM_HPP
 
+#include <iostream>
 #include <memory>
 
 #include "../Components/BoxColliderComponent.hpp"
+#include "../Components/ConsumableComponent.hpp"
+#include "../Components/HealthComponent.hpp"
 #include "../Components/RigidBodyComponent.hpp"
+#include "../Components/SanityComponent.hpp"
 #include "../Components/ScriptComponent.hpp"
+#include "../Components/TagComponent.hpp"
 #include "../Components/TransformComponent.hpp"
 #include "../ECS/ECS.hpp"
 #include "../EventManager/EventManager.hpp"
@@ -21,6 +26,42 @@ class BoxCollisionSystem : public System {
         aY < bY + bH &&
         aY + aH > bY
       );
+    }
+
+    void HandleConsumablePickup(Entity player, Entity potion) {
+
+      auto& consumable = potion.GetComponent<ConsumableComponent>();
+
+      // HEALTH
+      if (consumable.type == ConsumableType::HEALTH &&
+        player.HasComponent<HealthComponent>()) {
+        auto& health = player.GetComponent<HealthComponent>();
+
+        health.currentHealth += consumable.amount;
+        health.currentHealth = std::min(
+          health.currentHealth,
+          health.maxHealth
+        );
+      }
+      // SANITY
+      else if (consumable.type == ConsumableType::SANITY &&
+        player.HasComponent<SanityComponent>()) {
+        auto& sanity = player.GetComponent<SanityComponent>();
+        std::cout << "Current sanity: " << sanity.currentSanity << std::endl;
+
+        sanity.currentSanity += consumable.amount;
+        std::cout << "Sanity after adding: " << sanity.currentSanity << std::endl;
+        std::cout << "Max sanity:  " << sanity.maxSanity << std::endl;
+        sanity.currentSanity = std::min(
+          sanity.currentSanity,
+          sanity.maxSanity
+        );
+        std::cout << consumable.amount << " Sanity gained !" << std::endl;
+        std::cout << "Sanity now: " << sanity.currentSanity << std::endl;
+      }
+
+      // Destroy potion
+      potion.Kill();
     }
 
   public:
@@ -84,7 +125,26 @@ class BoxCollisionSystem : public System {
                 lua["this"] = b;
                 script.onCollision(a);
               }
-            }         
+            }
+            
+            // Consumable pickup 
+            if (a.HasComponent<TagComponent>() &&
+              b.HasComponent<ConsumableComponent>())
+            {
+              const auto& tag = a.GetComponent<TagComponent>();
+              if (tag.tag == "player") {
+                HandleConsumablePickup(a, b);
+              }
+            }
+
+            if (b.HasComponent<TagComponent>() &&
+              a.HasComponent<ConsumableComponent>())
+            {
+              const auto& tag = b.GetComponent<TagComponent>();
+              if (tag.tag == "player") {
+                HandleConsumablePickup(b, a);
+              }
+            }
           }
         }
       }

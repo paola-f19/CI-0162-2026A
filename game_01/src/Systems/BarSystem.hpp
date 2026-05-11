@@ -1,6 +1,8 @@
 #ifndef BARSYSTEM_HPP
 #define BARSYSTEM_HPP
 
+#include <iostream>
+
 #include "../Components/BarComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/SanityComponent.hpp"
@@ -12,7 +14,11 @@ public:
     RequireComponent<BarComponent>();
   }
 
-  void Update(SDL_Renderer* renderer) {
+  void Update(SDL_Renderer* renderer, Entity player) {
+    if (player.GetId() == -1) {
+      return;
+    }
+    
     for (auto entity : GetSystemEntities()) {
       const auto& bar = entity.GetComponent<BarComponent>();
 
@@ -21,18 +27,18 @@ public:
 
       // HEALTH BAR
       if (bar.type == BarType::HEALTH &&
-        entity.HasComponent<HealthComponent>()) {
+        player.HasComponent<HealthComponent>()) {
 
-        const auto& health = entity.GetComponent<HealthComponent>();
+        const auto& health = player.GetComponent<HealthComponent>();
 
         current = health.currentHealth;
         max = health.maxHealth;
       }
       // SANITY BAR
       else if (bar.type == BarType::SANITY &&
-        entity.HasComponent<SanityComponent>()) {
+        player.HasComponent<SanityComponent>()) {
 
-        const auto& sanity = entity.GetComponent<SanityComponent>();
+        const auto& sanity = player.GetComponent<SanityComponent>();
 
         current = sanity.currentSanity;
         max = sanity.maxSanity;

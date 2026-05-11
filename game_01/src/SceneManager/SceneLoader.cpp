@@ -9,6 +9,7 @@
 #include "../Components/CameraFollowComponent.hpp"
 #include "../Components/CircleColliderComponent.hpp"
 #include "../Components/ClickableComponent.hpp"
+#include "../Components/ConsumableComponent.hpp"
 #include "../Components/DamageComponent.hpp"
 #include "../Components/DirectionComponent.hpp"
 #include "../Components/FactionComponent.hpp"
@@ -522,7 +523,23 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
       if (hasClickable != sol::nullopt) {
         newEntity.AddComponent<ClickableComponent>();
       }
-      std::cout << "  [LOAD ENTITIES] loaded clickable" << std::endl;
+
+      //* ConsumableComponent
+      sol::optional<sol::table> hasConsumable = components["consumable"];
+      if (hasConsumable != sol::nullopt) {
+        std::string typeString = components["consumable"]["type"];
+        ConsumableType type;
+        if (typeString == "health") {
+          type = ConsumableType::HEALTH;
+        }
+        else if (typeString == "sanity") {
+          type = ConsumableType::SANITY;
+        }
+        newEntity.AddComponent<ConsumableComponent>(
+          type, 
+          components["consumable"]["amount"]
+        );
+      }
 
       //* DamageComponent
       sol::optional<sol::table> hasDamage = components["damage"];

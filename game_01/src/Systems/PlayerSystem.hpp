@@ -8,6 +8,7 @@
 class PlayerSystem : public System {
 private:
   TransformComponent* playerTransform;
+  Entity player{-1};
 
 public:
   PlayerSystem() {
@@ -21,6 +22,7 @@ public:
 
       if (tag.tag == "player") {
         playerTransform = &entity.GetComponent<TransformComponent>();
+        player = entity;
         break;
       }
     }
@@ -28,6 +30,10 @@ public:
 
   TransformComponent& GetPlayerTransform() const {
     return *playerTransform;
+  }
+
+  Entity GetPlayer() const {
+    return player;
   }
 };
 

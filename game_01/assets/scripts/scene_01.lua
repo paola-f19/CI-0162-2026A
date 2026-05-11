@@ -4,6 +4,8 @@ scene = {
   sprites = {
     [0] =
     {assetId = "barrier_gem", filePath = "./assets/images/barrier_gem.png"},
+    {assetId = "health_pot", filePath = "./assets/images/health_pot.png"},
+    {assetId = "sanity_pot", filePath = "./assets/images/sanity_pot.png"},
     {assetId = "0_grass", filePath = "./assets/images/Grass.png"},
     {assetId = "0_water", filePath = "./assets/images/Water.png"},
     {assetId = "0_nature", filePath = "./assets/images/nature.png"},
@@ -260,6 +262,40 @@ scene = {
         },
         transform = {
           position = { x = 310.0, y = 1002.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      }
+    },
+    -- Sanity potion 1
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        consumable = {
+          type = "sanity",
+          amount = 10,
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = true,
+          mass = 9999999999,
+        },
+        sprite = {
+          assetId = "sanity_pot",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "sanity_potion",
+        },
+        transform = {
+          position = { x = 230.0, y = 230.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -840,15 +876,6 @@ scene = {
           height = 10,
           offset = { x = 4, y = 12 },
         },
-        bar = {
-          width = 100,
-          height = 10,
-          posX = 10,
-          posY = 10,
-          fgColor = { r = 0, g = 255, b = 0, a = 255 },
-          bgColor = { r = 60, g = 60, b = 60, a = 255 },
-          type = "health"
-        }, 
         health = {
           maxHealth = 100,
           currentHealth = 100,
@@ -861,6 +888,11 @@ scene = {
           is_dynamic = false,
           is_solid = true,
           mass = 10,
+        },
+        sanity = {
+          maxSanity = 60,
+          currentSanity = 60,
+          drain = 1,
         },
         script = {
           path = "./assets/scripts/player.lua",
@@ -882,6 +914,20 @@ scene = {
         },
       },
     },
+    -- Health bar
+    {
+      components = {
+        bar = {
+          width = 100,
+          height = 10,
+          posX = 10,
+          posY = 10,
+          fgColor = { r = 0, g = 255, b = 0, a = 255 },
+          bgColor = { r = 60, g = 60, b = 60, a = 255 },
+          type = "health"
+        }, 
+      },
+    },
     -- Sanity bar
     {
       components = {
@@ -894,12 +940,7 @@ scene = {
           bgColor = { r = 60, g = 60, b = 60, a = 255 },
           type = "sanity"
         }, 
-        sanity = {
-          maxSanity = 60,
-          currentSanity = 60,
-          drain = 1,
-        },
-      }
+      },
     },
   },
 }
