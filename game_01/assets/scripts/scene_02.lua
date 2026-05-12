@@ -4,6 +4,8 @@ scene = {
   sprites = {
     [0] =
     {assetId = "barrier_gem", filePath = "./assets/images/barrier_gem.png"},
+    {assetId = "health_pot", filePath = "./assets/images/health_pot.png"},
+    {assetId = "sanity_pot", filePath = "./assets/images/sanity_pot.png"},
     {assetId = "0_red_dungeon", filePath = "./assets/images/red_dungeon.png"},
     {assetId = "0_red_dungeon_props", filePath = "./assets/images/red_dungeon.png"},
     {assetId = "1_grassy", filePath = "./assets/images/na_floors.png"},
@@ -256,6 +258,210 @@ scene = {
         },
         transform = {
           position = { x = 590.0, y = 1080.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      }
+    },
+    -- Sanity potion 1
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        consumable = {
+          type = "sanity",
+          amount = 20,
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = true,
+          mass = 9999999999,
+        },
+        sprite = {
+          assetId = "sanity_pot",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "sanity_potion",
+        },
+        transform = {
+          position = { x = 250.0, y = 500.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      }
+    },
+    -- Sanity potion 2
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        consumable = {
+          type = "sanity",
+          amount = 20,
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = true,
+          mass = 9999999999,
+        },
+        sprite = {
+          assetId = "sanity_pot",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "sanity_potion",
+        },
+        transform = {
+          position = { x = 540.0, y = 940.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      }
+    },
+    -- Sanity potion 3
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        consumable = {
+          type = "sanity",
+          amount = 20,
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = true,
+          mass = 9999999999,
+        },
+        sprite = {
+          assetId = "sanity_pot",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "sanity_potion",
+        },
+        transform = {
+          position = { x = 720.0, y = 780.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      }
+    },
+    -- Health potion 1
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        consumable = {
+          type = "health",
+          amount = 20,
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = true,
+          mass = 9999999999,
+        },
+        sprite = {
+          assetId = "health_pot",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "health_potion",
+        },
+        transform = {
+          position = { x = 420.0, y = 1150.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      }
+    },
+    -- Health potion 2
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        consumable = {
+          type = "health",
+          amount = 20,
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = true,
+          mass = 9999999999,
+        },
+        sprite = {
+          assetId = "health_pot",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "health_potion",
+        },
+        transform = {
+          position = { x = 1220.0, y = 620.0 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      }
+    },
+    -- Health potion 3
+    {
+      components = {
+        box_collider = {
+          width = 16,
+          height = 16,
+          offset = { x = 0, y = 0 },
+        },
+        consumable = {
+          type = "health",
+          amount = 20,
+        },
+        rigid_body = {
+          is_dynamic = false,
+          is_solid = true,
+          mass = 9999999999,
+        },
+        sprite = {
+          assetId = "health_pot",
+          width = 16,
+          height = 16,
+          src_rect = { x = 0, y = 0 },
+          offset = { x = 0, y = 0 },
+        },
+        tag = {
+          tag = "health_potion",
+        },
+        transform = {
+          position = { x = 820.0, y = 825.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
