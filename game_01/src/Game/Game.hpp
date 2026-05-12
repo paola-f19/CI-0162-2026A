@@ -20,6 +20,9 @@
 const int FPS = 30;
 const int MILLISECS_PER_FRAME = 1000 / FPS;
 
+/**
+ * @brief Main game engine controller.
+ */
 class Game {
   private:
     SDL_Window* window = nullptr;
@@ -53,22 +56,62 @@ class Game {
     int mapWidth = 0;
     int mapHeight = 0;
 
-  
   private:
+    /**
+     * @brief Initializes game systems and resources.
+     */
     void SetUp();
+
+    /**
+     * @brief Executes the current scene.
+     */
     void RunScene();
+
+    /**
+     * @brief Processes SDL input events.
+     */
     void ProcessInput();
+
+    /**
+     * @brief Updates game logic.
+     */
     void Update();
+
+    /**
+     * @brief Renders the current game frame.
+     */
     void Render();
 
+    /**
+     * @brief Constructor.
+     */
     Game();
+    /**
+     * @brief Destructor.
+     */
     ~Game();
 
   public:
+    /**
+     * @brief Retrieves the singleton game instance.
+     *
+     * @return Reference to the game instance.
+     */
     static Game& GetInstance();
 
+    /**
+     * @brief Initializes the game engine.
+     */
     void Init();
+
+    /**
+     * @brief Starts the main game loop.
+     */
     void Run();
+
+    /**
+     * @brief Frees game resources and shuts down the engine.
+     */
     void Destroy();
 };
 

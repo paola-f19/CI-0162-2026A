@@ -12,32 +12,68 @@
 
 #include "../Utils/Pool.hpp"
 
+/**
+ * @file ECS.hpp
+ * @brief Core Entity Component System architecture.
+ */
+
 const unsigned int MAX_COMPONENTS = 64;
 
 // Signature
 typedef std::bitset<MAX_COMPONENTS> Signature;
 
+/**
+ * @brief Base interface for component identification.
+ */
 struct IComponent {
   protected:
     static int nextId;
 };
 
+/**
+ * @brief Generates unique ids for component types.
+ *
+ * @tparam TComponent Component type.
+ */
 template <typename TComponent>
 class Component : public IComponent {
   public:
+    /**
+     * @brief Retrieves the unique id of a component type.
+     *
+     * @return Component type id.
+     */
     static int GetId() {
       static int id = nextId++;
       return id;
     }
 };
 
+/**
+ * @brief Represents an entity within the ECS.
+ */
 class Entity {
   private:
     int id;
 
   public:
+    /**
+     * @brief Constructor.
+     *
+     * @param id Unique entity id.
+     */
     Entity(int id) : id(id) {}
+
+    /**
+     * @brief Getter for entity id.
+     *
+     * @return Entity id.
+     */
     int GetId() const;
+
+    /**
+     * @brief Marks the entity for removal.
+     */
     void Kill();
 
     bool operator==(const Entity& other) const {return id == other.id; } 
@@ -45,21 +81,48 @@ class Entity {
     bool operator>(const Entity& other) const {return id > other.id; }
     bool operator<(const Entity& other) const {return id < other.id; }
 
+    /**
+     * @brief Adds a component to the entity.
+     *
+     * @tparam TComponent Component type.
+     * @tparam TArgs Component constructor argument types.
+     * @param args Arguments forwarded to the component constructor.
+     */
     template <typename TComponent, typename... TArgs>
     void AddComponent(TArgs&&... args);
 
+    /**
+     * @brief Removes a component from the entity.
+     *
+     * @tparam TComponent Component type.
+     */
     template <typename TComponent>
     void RemoveComponent();
 
+    /**
+     * @brief Checks whether the entity has a component.
+     *
+     * @tparam TComponent Component type.
+     * @return True if the entity has the component.
+     */
     template <typename TComponent>
     bool HasComponent() const;
 
+    /**
+     * @brief Retrieves a component from the entity.
+     *
+     * @tparam TComponent Component type.
+     * @return Reference to the requested component.
+     */
     template <typename TComponent>
     TComponent& GetComponent() const;
 
     class Registry* registry;
 };
 
+/**
+ * @brief Base class for ECS systems.
+ */
 class System {
   private:
     Signature componentSignature;
@@ -69,15 +132,46 @@ class System {
     System() = default;
     ~System() = default;
 
+    /**
+     * @brief Adds an entity to the system.
+     *
+     * @param entity Entity to add.
+     */
     void AddEntityToSystem(Entity entity);
+
+    /**
+     * @brief Removes an entity from the system.
+     *
+     * @param entity Entity to remove.
+     */
     void RemoveEntityFromSystem(Entity entity);
+
+    /**
+     * @brief Retrieves all entities managed by the system.
+     *
+     * @return Vector of entities.
+     */
     std::vector<Entity> GetSystemEntities() const;
+
+    /**
+     * @brief Retrieves the required component signature.
+     *
+     * @return Component signature.
+     */
     const Signature& GetComponentSignature() const;
 
+    /**
+     * @brief Declares a required component for the system.
+     *
+     * @tparam TComponent Required component type.
+     */
     template <typename TComponent>
     void RequireComponent();
 };
 
+/**
+ * @brief Central manager for entities, components, and systems.
+ */
 class Registry {
   private:
     int numEntity = 0;
@@ -93,46 +187,133 @@ class Registry {
     std::deque<int> freeIds;
   
   public:
+    /**
+     * @brief Constructor.
+     */
     Registry();
+    /**
+     * @brief Destructor.
+     */
     ~Registry();
 
+    /**
+     * @brief Updates entity and system state.
+     */
     void Update();
 
-    // Entity management
+    //* Entity management
+
+    /**
+     * @brief Creates a new entity.
+     *
+     * @return Newly created entity.
+     */
     Entity CreateEntity();
+
+    /**
+     * @brief Marks an entity for removal.
+     *
+     * @param entity Entity to remove.
+     */
     void KillEntity(Entity entity);
 
-    // Component management
+    //* Component management
+
+    /**
+     * @brief Adds a component to an entity.
+     *
+     * @tparam TComponent Component type.
+     * @tparam TArgs Component constructor argument types.
+     * @param entity Target entity.
+     * @param args Arguments forwarded to the component constructor.
+     */
     template <typename TComponent, typename... TArgs>
     void AddComponent(Entity entity, TArgs&&... args);
 
+    /**
+     * @brief Removes a component from an entity.
+     *
+     * @tparam TComponent Component type.
+     * @param entity Target entity.
+     */
     template <typename TComponent>
     void RemoveComponent(Entity entity);
 
+    /**
+     * @brief Checks whether an entity owns a component.
+     *
+     * @tparam TComponent Component type.
+     * @param entity Target entity.
+     * @return True if the entity owns the component.
+     */
     template <typename TComponent>
     bool HasComponent(Entity entity) const;
 
+    /**
+     * @brief Retrieves a component from an entity.
+     *
+     * @tparam TComponent Component type.
+     * @param entity Target entity.
+     * @return Reference to the requested component.
+     */
     template <typename TComponent>
     TComponent& GetComponent(Entity entity) const;
 
-    // System management
+    //* System management
+
+    /**
+     * @brief Registers a system.
+     *
+     * @tparam TSystem System type.
+     * @tparam TArgs System constructor argument types.
+     * @param args Arguments forwarded to the system constructor.
+     */
     template <typename TSystem, typename... TArgs>
     void AddSystem(TArgs&&... args);
 
+    /**
+     * @brief Removes a system.
+     *
+     * @tparam TSystem System type.
+     */
     template <typename TSystem>
     void RemoveSystem();
 
+    /**
+     * @brief Checks whether a system is registered.
+     *
+     * @tparam TSystem System type.
+     * @return True if the system exists.
+     */
     template <typename TSystem>
     bool HasSystem() const;
 
+    /**
+     * @brief Retrieves a registered system.
+     *
+     * @tparam TSystem System type.
+     * @return Reference to the requested system.
+     */
     template <typename TSystem>
     TSystem& GetSystem() const;
 
-    // Add and remove entities to systems
+    /**
+     * @brief Adds an entity to matching systems.
+     *
+     * @param entity Entity to add.
+     */
     void AddEntityToSystems(Entity entity);
+
+    /**
+     * @brief Removes an entity from all systems.
+     *
+     * @param entity Entity to remove.
+     */
     void RemoveEntityFromSystems(Entity entity);
 
-    // Reset registry
+    /**
+     * @brief Removes all entities from the registry.
+     */
     void ClearAllEntities();
 };
 

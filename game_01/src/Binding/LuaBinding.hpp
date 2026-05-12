@@ -17,8 +17,19 @@
 #include "../ECS/ECS.hpp"
 #include "../Game/Game.hpp"
 
+/**
+ * @file LuaBinding.hpp
+ * @brief Exposes engine functionality to Lua scripts.
+ */
+
 //* Animations
 
+/**
+ * @brief Changes the active animation of an entity.
+ *
+ * @param entity Entity whose animation will be changed.
+ * @param animationId Id of the target animation.
+ */
 void ChangeAnimation(Entity entity, const std::string& animationId) {
   auto& animation = entity.GetComponent<AnimationComponent>();
   auto& sprite = entity.GetComponent<SpriteComponent>();
@@ -40,12 +51,25 @@ void ChangeAnimation(Entity entity, const std::string& animationId) {
 }
 
 //* Audio
+
+/**
+ * @brief Plays a sound effect.
+ *
+ * @param soundId Id of the sound to play.
+ */
 void PlaySound(const std::string soundId) {
   Game::GetInstance().audioManager->PlaySound(soundId);
 }
 
 //* Collisions
 
+/**
+ * @brief Checks if an entity collides with another entity on its left side.
+ *
+ * @param e Primary entity.
+ * @param other Entity being checked against.
+ * @return True if a left-side collision is detected.
+ */
 bool LeftCollision(Entity e, Entity other) {
   const auto& eCollider = e.GetComponent<BoxColliderComponent>();
   const auto& eTransform = e.GetComponent<TransformComponent>();
@@ -69,6 +93,13 @@ bool LeftCollision(Entity e, Entity other) {
   );
 }
 
+/**
+ * @brief Checks if an entity collides with another entity on its right side.
+ *
+ * @param e Primary entity.
+ * @param other Entity being checked against.
+ * @return True if a right-side collision is detected.
+ */
 bool RightCollision(Entity e, Entity other) {
   const auto& eCollider = e.GetComponent<BoxColliderComponent>();
   const auto& eTransform = e.GetComponent<TransformComponent>();
@@ -92,13 +123,27 @@ bool RightCollision(Entity e, Entity other) {
   );
 }
 
-//* Controles
+//* Controls
 
+/**
+ * @brief Checks whether a controller action is active.
+ *
+ * @param action Name of the action to check.
+ * @return True if the action is currently active.
+ */
 bool IsActionActivated(const std::string& action) {
   return Game::GetInstance().controllerManager->isActionActivated(action);
 }
 
 //* DirectionComponent
+
+/**
+ * @brief Sets the direction vector of an entity.
+ *
+ * @param entity Target entity.
+ * @param x Horizontal direction value.
+ * @param y Vertical direction value.
+ */
 void SetDirection(Entity entity, float x, float y) {
   auto& dir = entity.GetComponent<DirectionComponent>();
   dir.direction = {x, y};
@@ -106,13 +151,22 @@ void SetDirection(Entity entity, float x, float y) {
 
 //* LayerComponent
 
+/**
+ * @brief Retrieves the layer of an entity.
+ *
+ * @param entity Target entity.
+ * @return Layer value.
+ */
 int GetLayer(Entity entity) {
   return entity.GetComponent<LayerComponent>().z;
 }
 
-
+/**
+ * @brief Removes a layer from the game and handles win condition.
+ *
+ * @param z Layer id to remove.
+ */
 void RemoveLayer(int z) {
-  // std::cout << "[LUABINDING] entered RemoveLayer with z = " << z << std::endl;
   Game::GetInstance().registry->GetSystem<LayerSystem>().RemoveLayer(z);
 
   Game::GetInstance().buttonCount--;
@@ -125,6 +179,12 @@ void RemoveLayer(int z) {
 
 //* RigidBodyComponent
 
+/**
+ * @brief Retrieves the velocity of an entity.
+ *
+ * @param entity Target entity.
+ * @return Velocity vector as an integer tuple.
+ */
 std::tuple<int, int> GetVelocity(Entity entity) {
   const auto& rigidbody = entity.GetComponent<RigidBodyComponent>();
 
@@ -134,12 +194,26 @@ std::tuple<int, int> GetVelocity(Entity entity) {
   };
 }
 
+/**
+ * @brief Sets the velocity of an entity.
+ *
+ * @param entity Target entity.
+ * @param x Horizontal velocity.
+ * @param y Vertical velocity.
+ */
 void SetVelocity(Entity entity, float x, float y) {
   auto& rigidBody = entity.GetComponent<RigidBodyComponent>();
   rigidBody.velocity.x = x;
   rigidBody.velocity.y = y;
 }
 
+/**
+ * @brief Applies force to an entity.
+ *
+ * @param entity Target entity.
+ * @param x Horizontal force.
+ * @param y Vertical force.
+ */
 void AddForce(Entity entity, float x, float y) {
   auto& rigidBody = entity.GetComponent<RigidBodyComponent>();
   rigidBody.sumForces += glm::vec2(x, y);
@@ -147,12 +221,24 @@ void AddForce(Entity entity, float x, float y) {
 
 //* Scenes
 
+/**
+ * @brief Transitions to another scene.
+ *
+ * @param sceneName Name of the target scene.
+ */
 void GoToScene(const std::string& sceneName) {
   Game::GetInstance().sceneManager->SetNextScene(sceneName);
   Game::GetInstance().sceneManager->StopScene();
 }
 
 //* Sprites
+
+/**
+ * @brief Flips an entity sprite horizontally.
+ *
+ * @param entity Target entity.
+ * @param flip True to flip the sprite.
+ */
 void FlipSprite(Entity entity, bool flip) {
   auto& sprite = entity.GetComponent<SpriteComponent>();
   sprite.flip = flip;
@@ -160,12 +246,24 @@ void FlipSprite(Entity entity, bool flip) {
 
 //* TagComponent
 
+/**
+ * @brief Retrieves the tag of an entity.
+ *
+ * @param entity Target entity.
+ * @return Entity tag string.
+ */
 std::string GetTag(Entity entity) {
   return entity.GetComponent<TagComponent>().tag;
 }
 
 //* TransformComponent
 
+/**
+ * @brief Retrieves the position of an entity.
+ *
+ * @param entity Target entity.
+ * @return Position as an integer tuple.
+ */
 std::tuple<int, int> GetPosition(Entity entity) {
   const auto& transform = entity.GetComponent<TransformComponent>();
 
@@ -175,6 +273,13 @@ std::tuple<int, int> GetPosition(Entity entity) {
   };
 }
 
+/**
+ * @brief Sets the position of an entity.
+ *
+ * @param entity Target entity.
+ * @param x Horizontal position.
+ * @param y Vertical position.
+ */
 void SetPosition(Entity entity, int x, int y) {
   auto& transform = entity.GetComponent<TransformComponent>();
 
@@ -182,6 +287,12 @@ void SetPosition(Entity entity, int x, int y) {
   transform.position.y = y;
 }
 
+/**
+ * @brief Retrieves the rendered size of an entity.
+ *
+ * @param entity Target entity.
+ * @return Width and height as an integer tuple.
+ */
 std::tuple<int, int> GetSize(Entity entity) {
   const auto& sprite = entity.GetComponent<SpriteComponent>();
   const auto& transform = entity.GetComponent<TransformComponent>();
@@ -193,6 +304,10 @@ std::tuple<int, int> GetSize(Entity entity) {
 }
 
 //* UI
+
+/**
+ * @brief Toggles the paused state of the game.
+ */
 void TogglePause() {
   Game::GetInstance().isPaused = !Game::GetInstance().isPaused;
 }
