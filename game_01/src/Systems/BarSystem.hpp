@@ -8,12 +8,24 @@
 #include "../Components/SanityComponent.hpp"
 #include "../ECS/ECS.hpp"
 
+/**
+ * @brief Renders UI bars such as health and sanity.
+ */
 class BarSystem : public System {
 public:
+  /**
+   * @brief Constructor.
+   */
   BarSystem() {
     RequireComponent<BarComponent>();
   }
 
+  /**
+   * @brief Renders all active UI bars.
+   *
+   * @param renderer SDL renderer used for drawing.
+   * @param player Player entity containing tracked stats.
+   */
   void Update(SDL_Renderer* renderer, Entity player) {
     if (player.GetId() == -1) {
       return;

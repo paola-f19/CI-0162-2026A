@@ -8,12 +8,23 @@
 #include "../Components/ScriptComponent.hpp"
 #include "../ECS/ECS.hpp"
 
+/**
+ * @brief Executes Lua scripts attached to entities.
+ */
 class ScriptSystem : public System {
   public:   
+    /**
+     * @brief Constructor.
+     */
     ScriptSystem() {
       RequireComponent<ScriptComponent>();
     }
 
+    /**
+     * @brief Registers C++ bindings for Lua scripts.
+     *
+     * @param lua Lua state used for scripting.
+     */
     void CreateLuaBinding(sol::state& lua) {
       // Classes
       lua.new_usertype<Entity>("entity");
@@ -51,6 +62,12 @@ class ScriptSystem : public System {
       lua.set_function("toggle_pause", TogglePause);
     }
 
+    /**
+     * @brief Updates all scripted entities.
+     *
+     * @param lua Lua state used for scripting.
+     * @param delta_time Frame delta time in seconds.
+     */
     void Update(sol::state& lua, double delta_time) {
       for (auto entity : GetSystemEntities()) {
         const auto& script = entity.GetComponent<ScriptComponent>();

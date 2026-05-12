@@ -6,14 +6,25 @@
 #include "../Components/TransformComponent.hpp"
 #include "../ECS/ECS.hpp"
 
+/**
+ * @brief Moves entities along predefined waypoint paths.
+ */
 class PatrolSystem : public System {
   public:
+    /**
+     * @brief Constructor.
+     */
     PatrolSystem() {
       RequireComponent<PatrolComponent>();
       RequireComponent<RigidBodyComponent>();
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Updates patrol movement behavior.
+     *
+     * @param deltatime Frame delta time in seconds.
+     */
     void Update(float deltatime) {
       for (auto entity : GetSystemEntities()) {
         auto& transform = entity.GetComponent<TransformComponent>();

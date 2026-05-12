@@ -9,13 +9,26 @@
 #include "../Components/UIComponent.hpp"
 #include "../ECS/ECS.hpp"
 
+/**
+ * @brief Renders entity sprites to the screen.
+ */
 class RenderSystem : public System {
   public:
+    /**
+     * @brief Constructor.
+     */
     RenderSystem() {
       RequireComponent<SpriteComponent>();
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Renders all visible sprites.
+     *
+     * @param renderer SDL renderer used for drawing.
+     * @param camera Current camera rectangle.
+     * @param assetManager Asset manager containing textures.
+     */
     void Update(SDL_Renderer* renderer, SDL_Rect& camera
       , const std::unique_ptr<AssetManager>& assetManager) {
       for (auto entity : GetSystemEntities()) {

@@ -16,8 +16,25 @@
 #include "../EventManager/EventManager.hpp"
 #include "../Events/CollisionEvent.hpp"
 
+/**
+ * @brief Detects and handles box collisions between entities.
+ */
 class BoxCollisionSystem : public System {
   private:
+    /**
+     * @brief Checks collision between two axis-aligned bounding boxes.
+     *
+     * @param aX First box X position.
+     * @param aY First box Y position.
+     * @param aW First box width.
+     * @param aH First box height.
+     * @param bX Second box X position.
+     * @param bY Second box Y position.
+     * @param bW Second box width.
+     * @param bH Second box height.
+     *
+     * @return True if the boxes overlap.
+     */
     bool CheckAABBCollision(float aX, float aY, float aW, float aH, float bX
       , float bY, float bW, float bH) {
       return(
@@ -28,6 +45,12 @@ class BoxCollisionSystem : public System {
       );
     }
 
+    /**
+     * @brief Applies consumable effects to the player.
+     *
+     * @param player Player entity receiving the effect.
+     * @param potion Consumable entity being collected.
+     */
     void HandleConsumablePickup(Entity player, Entity potion) {
 
       auto& consumable = potion.GetComponent<ConsumableComponent>();
@@ -65,11 +88,20 @@ class BoxCollisionSystem : public System {
     }
 
   public:
+    /**
+     * @brief Constructor.
+     */
     BoxCollisionSystem() {
       RequireComponent<BoxColliderComponent>();
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Updates collision detection and collision responses.
+     *
+     * @param eventManager Event manager used for collision events.
+     * @param lua Lua state used for scripted callbacks.
+     */
     void Update(const std::unique_ptr<EventManager>& eventManager
       , sol::state& lua) {
       auto entities = GetSystemEntities();

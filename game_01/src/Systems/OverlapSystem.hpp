@@ -10,10 +10,25 @@
 #include "../EventManager/EventManager.hpp"
 #include "../Events/CollisionEvent.hpp"
 
+/**
+ * @brief Directions used for overlap resolution checks.
+ */
 enum Direction {top, left, bottom, right};
 
+/**
+ * @brief Resolves overlaps between solid entities.
+ */
 class OverlapSystem : public System {
   private:
+    /**
+     * @brief Checks collision direction between two entities.
+     *
+     * @param a Reference entity.
+     * @param b Moving entity.
+     * @param dir Direction being tested.
+     *
+     * @return True if the collision matches the direction.
+     */
     bool CheckCollision(Entity a, Entity b, Direction dir) {
       auto& aCollider = a.GetComponent<BoxColliderComponent>();
       auto& bCollider = b.GetComponent<BoxColliderComponent>();
@@ -69,6 +84,12 @@ class OverlapSystem : public System {
       return false;
     }
 
+    /**
+     * @brief Repositions entities to resolve overlap.
+     *
+     * @param a Reference entity.
+     * @param b Moving entity.
+     */
     void AvoidOverlap(Entity a, Entity b) {
       auto& aCollider = a.GetComponent<BoxColliderComponent>();
       auto& aTransform = a.GetComponent<TransformComponent>();
@@ -84,7 +105,6 @@ class OverlapSystem : public System {
 
         bTransform.position.y = aTop - bCollider.height - bOffsetY;
 
-        // Do NOT modify X
         bRigidbody.velocity.y = 0.0f;
       }
 
@@ -95,7 +115,6 @@ class OverlapSystem : public System {
 
         bTransform.position.y = aBottom - bOffsetY;
 
-        // Do NOT modify X
         bRigidbody.velocity.y = 0.0f;
       }
 
@@ -106,7 +125,6 @@ class OverlapSystem : public System {
 
         bTransform.position.x = aLeft - bCollider.width - bOffsetX;
 
-        // Do NOT modify Y
         bRigidbody.velocity.x = 0.0f;
       }
 
@@ -117,24 +135,36 @@ class OverlapSystem : public System {
 
         bTransform.position.x = aRight - bOffsetX;
 
-        // Do NOT modify Y
         bRigidbody.velocity.x = 0.0f;
       }
     }
 
   public:
+    /**
+     * @brief Constructor.
+     */
     OverlapSystem() {
       RequireComponent<BoxColliderComponent>();
       RequireComponent<RigidBodyComponent>();
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Subscribes the system to collision events.
+     *
+     * @param eventManager Event manager handling subscriptions.
+     */
     void SubscribeToCollisionEvent(
       const std::unique_ptr<EventManager>& eventManager) {
       eventManager->SubscribeToEvent<CollisionEvent, OverlapSystem>(this
         , &OverlapSystem::OnCollisionEvent);
     }
 
+    /**
+     * @brief Handles collision events and resolves overlaps.
+     *
+     * @param e Collision event data.
+     */
     void OnCollisionEvent(CollisionEvent& e) {
       auto& aRigidbody = e.a.GetComponent<RigidBodyComponent>();
       auto& bRigidbody = e.b.GetComponent<RigidBodyComponent>();

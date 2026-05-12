@@ -6,8 +6,18 @@
 #include "../Components/WanderComponent.hpp"
 #include "../ECS/ECS.hpp"
 
+/**
+ * @brief Moves entities toward random targets within a defined radius.
+ */
 class WanderSystem : public System {
   private:
+    /**
+     * @brief Generates a random point inside a circular area.
+     * 
+     * @param origin Center point of the wander area.
+     * @param radius Maximum wander distance.
+     * @return Random target position.
+     */
     glm::vec2 GetRandomPoint(glm::vec2 origin, float radius) {
       float angle = (float)rand() / RAND_MAX * 2.0f * M_PI;
       float dist  = (float)rand() / RAND_MAX * radius;
@@ -16,12 +26,20 @@ class WanderSystem : public System {
     }
 
   public:
+    /**
+     * @brief Constructor.
+     */
     WanderSystem() {
       RequireComponent<WanderComponent>();
       RequireComponent<RigidBodyComponent>();
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Updates wandering movement for all entities.
+     * 
+     * @param deltatime Time elapsed since last frame.
+     */
     void Update(float deltatime) {
       for (auto entity : GetSystemEntities()) {
         auto& transform = entity.GetComponent<TransformComponent>();

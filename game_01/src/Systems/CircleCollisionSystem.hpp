@@ -9,13 +9,24 @@
 #include "../EventManager/EventManager.hpp"
 #include "../Events/CollisionEvent.hpp"
 
+/**
+ * @brief Detects circular collisions between entities.
+ */
 class CircleCollisionSystem : public System {
   public:
+    /**
+     * @brief Constructor.
+     */
     CircleCollisionSystem() {
       RequireComponent<CircleColliderComponent>();
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Updates collision detection for all circular colliders.
+     *
+     * @param eventManager Event manager used to emit collision events.
+     */
     void Update(std::unique_ptr<EventManager>& eventManager) {
       auto entities = GetSystemEntities();
 
@@ -57,6 +68,16 @@ class CircleCollisionSystem : public System {
       }
     }
     
+    /**
+     * @brief Checks collision between two circles.
+     *
+     * @param aRadius Radius of the first circle.
+     * @param bRadius Radius of the second circle.
+     * @param aPos Center position of the first circle.
+     * @param bPos Center position of the second circle.
+     *
+     * @return True if the circles overlap.
+     */
     bool CheckCircularCollision(int aRadius, int bRadius, glm::vec2 aPos
       , glm::vec2 bPos) {
       glm::vec2 dif = aPos - bPos;

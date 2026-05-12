@@ -6,13 +6,24 @@
 #include "../ECS/ECS.hpp"
 #include "../Game/Game.hpp"
 
+/**
+ * @brief Manages entity health states and game over conditions.
+ */
 class HealthSystem : public System {
   public:
+    /**
+     * @brief Constructor.
+     */
     HealthSystem() {
       RequireComponent<HealthComponent>();
       RequireComponent<TagComponent>();
     }
 
+    /**
+     * @brief Updates health-related gameplay logic.
+     *
+     * @param deltaTime Frame delta time in seconds.
+     */
     void Update(float deltaTime) {
       for (auto entity : GetSystemEntities()) {
         auto& health = entity.GetComponent<HealthComponent>();

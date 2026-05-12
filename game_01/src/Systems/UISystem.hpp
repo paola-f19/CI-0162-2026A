@@ -18,24 +18,42 @@
 #include "../EventManager/EventManager.hpp"
 #include "../Events/ClickEvent.hpp"
 
+/**
+ * @brief Handles clickable UI interactions and button events.
+ */
 class UISystem : public System {
   public:
     SDL_Rect camera = { 0, 0, 0, 0 };
 
+    /**
+     * @brief Constructor.
+     */
     UISystem() {
       RequireComponent<ClickableComponent>();
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Updates the current camera used for world-space UI clicks.
+     * @param camera Current game camera.
+     */
     void Update(SDL_Rect& camera) {
       this->camera = camera;
     }
 
+    /**
+     * @brief Subscribes the system to click events.
+     * @param eventManager Event manager instance.
+     */
     void SubscribeToClickEvent(std::unique_ptr<EventManager>& eventManager) {
       eventManager->SubscribeToEvent<ClickEvent, UISystem>(this
         , &UISystem::OnClickEvent);
     }
 
+    /**
+     * @brief Handles click events and triggers entity click callbacks.
+     * @param e Click event data.
+     */
     void OnClickEvent(ClickEvent& e) {
       for (auto entity : GetSystemEntities()) {
         const auto& transform = entity.GetComponent<TransformComponent>();

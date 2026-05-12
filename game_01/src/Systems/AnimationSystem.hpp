@@ -5,14 +5,25 @@
 #include "../Components/SpriteComponent.hpp"
 #include "../ECS/ECS.hpp"
 
+/**
+ * @brief Updates sprite animations for entities.
+ */
 class AnimationSystem : public System {
   public:
 
+    /**
+     * @brief Constructor.
+     */
     AnimationSystem() {
       RequireComponent<AnimationComponent>();
       RequireComponent<SpriteComponent>();
     }
 
+    /**
+     * @brief Updates all active entity animations.
+     *
+     * @param animationManager Animation manager containing animation data.
+     */
     void Update(std::unique_ptr<AnimationManager>& animationManager) {
       for (auto entity : GetSystemEntities()) {
         auto& animation = entity.GetComponent<AnimationComponent>();

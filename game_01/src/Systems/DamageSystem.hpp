@@ -12,8 +12,17 @@
 #include "../Events/CollisionEvent.hpp"
 #include "../Game/Game.hpp"
 
+/**
+ * @brief Applies damage to entities during collisions.
+ */
 class DamageSystem : public System {
   private:
+    /**
+     * @brief Applies damage from one entity to another.
+     *
+     * @param a Entity receiving damage.
+     * @param b Entity dealing damage.
+     */
     void HandleDamage(Entity a, Entity b) {
       if (!a.HasComponent<HealthComponent>()) return;
       if (!b.HasComponent<DamageComponent>()) return;
@@ -47,17 +56,29 @@ class DamageSystem : public System {
     }
 
   public:
+    /**
+     * @brief Constructor.
+     */
     DamageSystem() {
       RequireComponent<HealthComponent>();
     }
 
+    /**
+     * @brief Subscribes the system to collision events.
+     *
+     * @param eventManager Event manager handling subscriptions.
+     */
     void SubscribeToCollisionEvent(std::unique_ptr<EventManager>& eventManager) {
       eventManager->SubscribeToEvent<CollisionEvent, DamageSystem>(this
         , &DamageSystem::OnCollision);
     }
 
+    /**
+     * @brief Handles collision events and applies damage.
+     *
+     * @param e Collision event data.
+     */
     void OnCollision(CollisionEvent& e) {
-      // TODO: both do damage to each other, fix
       HandleDamage(e.a, e.b);
       HandleDamage(e.b, e.a);
     }

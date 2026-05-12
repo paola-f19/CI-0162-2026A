@@ -8,8 +8,14 @@
 
 #include "../ECS/ECS.hpp"
 
+/**
+ * @brief Moves entities toward the player when nearby.
+ */
 class FollowSystem : public System {
 public:
+  /**
+   * @brief Constructor.
+   */
   FollowSystem() {
     RequireComponent<FollowComponent>();
     RequireComponent<RigidBodyComponent>();
@@ -17,6 +23,12 @@ public:
     RequireComponent<TransformComponent>();
   }
 
+  /**
+   * @brief Updates follower movement behavior.
+   *
+   * @param deltatime Frame delta time in seconds.
+   * @param playerTransform Player transform component.
+   */
   void Update(float deltatime, TransformComponent& playerTransform) {
     for (auto entity : GetSystemEntities()) {
       auto& transform = entity.GetComponent<TransformComponent>();

@@ -18,8 +18,17 @@
 #include "../Events/ClickEvent.hpp"
 #include "../Game/Game.hpp"
 
+/**
+ * @brief Handles melee attacks and attack hitboxes.
+ */
 class AttackSystem : public System {
   private:
+    /**
+     * @brief Creates a temporary attack hitbox entity.
+     *
+     * @param player Attacking entity.
+     * @param attack Attack configuration data.
+     */
     void SpawnHitbox(Entity player, AttackComponent& attack) {
       std::cout << "[ATTACKSYSTEM] entered SpawnHitbox" << std::endl;
 
@@ -59,19 +68,32 @@ class AttackSystem : public System {
       hitbox.AddComponent<LifetimeComponent>(attack.duration);
     }
 
+    /**
+     * @brief Retrieves the facing direction of an entity.
+     *
+     * @param player Entity whose direction is requested.
+     * @return Normalized direction vector.
+     */
     glm::vec2 GetFacingDirection(Entity player) {
       auto& dir = player.GetComponent<DirectionComponent>();
       return dir.direction;
     }
 
+    /**
+     * @brief Triggers the attack animation of an entity.
+     *
+     * @param player Attacking entity.
+     */
     void TriggerAnimation(Entity player) {
       std::cout << "[ATTACKSYSTEM] entered TriggerAnimation" << std::endl;
       auto& script = player.GetComponent<ScriptComponent>();
       script.startAttack();
     }
 
-  
   public:
+    /**
+     * @brief Constructor.
+     */
     AttackSystem() {
       RequireComponent<AttackComponent>();
       RequireComponent<BoxColliderComponent>();
@@ -81,11 +103,21 @@ class AttackSystem : public System {
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Subscribes the system to click events.
+     *
+     * @param eventManager Event manager handling subscriptions.
+     */
     void SubscribeToClickEvent(const std::unique_ptr<EventManager>& eventManager) {
       eventManager->SubscribeToEvent<ClickEvent, AttackSystem>(
         this, &AttackSystem::OnClickEvent);
     }
     
+    /**
+     * @brief Handles mouse click attack input.
+     *
+     * @param e Click event data.
+     */
     void OnClickEvent(ClickEvent& e) {
       // attack only on left click
       if (e.buttonCode != 1) return;
@@ -111,7 +143,11 @@ class AttackSystem : public System {
       }
     }
 
-    // handle timings
+    /**
+     * @brief Updates attack timers and cooldowns.
+     *
+     * @param deltaTime Time elapsed since the previous frame.
+     */
     void Update(float deltaTime) {
       for (auto entity : GetSystemEntities()) {
         auto& attack = entity.GetComponent<AttackComponent>();
@@ -129,7 +165,6 @@ class AttackSystem : public System {
         }
       }
     }
-
 };
 
 #endif  // ATTACKSYSTEM_HPP

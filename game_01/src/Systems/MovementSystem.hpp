@@ -7,13 +7,24 @@
 #include "../Components/TransformComponent.hpp"
 #include "../ECS/ECS.hpp"
 
+/**
+ * @brief Updates entity movement and physics simulation.
+ */
 class MovementSystem : public System  {
   public:
+    /**
+     * @brief Constructor.
+     */
     MovementSystem() {
       RequireComponent<RigidBodyComponent>();
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Updates entity movement.
+     *
+     * @param dt Frame delta time in seconds.
+     */
     void Update(double dt) {
       for (auto entity : GetSystemEntities()) {
         auto& rigidbody = entity.GetComponent<RigidBodyComponent>();

@@ -8,13 +8,24 @@
 #include "../ECS/ECS.hpp"
 #include "../Game/Game.hpp"
 
+/**
+ * @brief Updates the camera position to follow entities.
+ */
 class CameraMovementSystem : public System {
   public:
+    /**
+     * @brief Constructor.
+     */
     CameraMovementSystem() {
       RequireComponent<CameraFollowComponent>();
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Updates the camera position.
+     *
+     * @param camera SDL camera rectangle.
+     */
     void Update(SDL_Rect& camera) {
       for (auto entity : GetSystemEntities()) {
         const auto& transform = entity.GetComponent<TransformComponent>();

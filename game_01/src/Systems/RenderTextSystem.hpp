@@ -12,13 +12,25 @@
 #include "../Components/UIRectComponent.hpp"
 #include "../ECS/ECS.hpp"
 
+/**
+ * @brief Renders text entities to the screen.
+ */
 class RenderTextSystem : public System {
   public:
+    /**
+     * @brief Constructor.
+     */
     RenderTextSystem() {
       RequireComponent<TextComponent>();
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Renders all text entities.
+     *
+     * @param renderer SDL renderer used for drawing.
+     * @param assetManager Asset manager containing fonts.
+     */
     void Update(SDL_Renderer* renderer
       , const std::unique_ptr<AssetManager>& assetManager) {
       for (auto entity : GetSystemEntities()) {

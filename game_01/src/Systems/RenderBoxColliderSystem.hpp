@@ -7,13 +7,25 @@
 #include "../Components/TransformComponent.hpp"
 #include "../ECS/ECS.hpp"
 
+/**
+ * @brief Renders debug box colliders on screen.
+ */
 class RenderBoxColliderSystem : public System {
   public:
+    /**
+     * @brief Creates a new box collider render system.
+     */
     RenderBoxColliderSystem() {
       RequireComponent<BoxColliderComponent>();
       RequireComponent<TransformComponent>();
     }
 
+    /**
+     * @brief Renders all box colliders.
+     *
+     * @param renderer SDL renderer used for drawing.
+     * @param camera Current camera rectangle.
+     */
     void Update(SDL_Renderer* renderer, SDL_Rect& camera) {
       for (auto entity : GetSystemEntities()) {
         const auto& collider = entity.GetComponent<BoxColliderComponent>();
