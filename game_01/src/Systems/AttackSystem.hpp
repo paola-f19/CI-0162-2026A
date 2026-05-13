@@ -12,6 +12,7 @@
 #include "../Components/FactionComponent.hpp"
 #include "../Components/LifetimeComponent.hpp"
 #include "../Components/ScriptComponent.hpp"
+#include "../Components/SpriteComponent.hpp"
 #include "../Components/TransformComponent.hpp"
 #include "../ECS/ECS.hpp"
 #include "../EventManager/EventManager.hpp"
@@ -32,32 +33,55 @@ class AttackSystem : public System {
     void SpawnHitbox(Entity player, AttackComponent& attack) {
       std::cout << "[ATTACKSYSTEM] entered SpawnHitbox" << std::endl;
 
-      auto& collider = player.GetComponent<BoxColliderComponent>();
+      // auto& collider = player.GetComponent<BoxColliderComponent>();
+      auto& sprite = player.GetComponent<SpriteComponent>();
       auto& transform = player.GetComponent<TransformComponent>();
       auto& faction = player.GetComponent<FactionComponent>();
 
       // Determine direction
       glm::vec2 direction = GetFacingDirection(player);
 
-      // Offset forward
-      glm::vec2 offset = direction * (attack.range * 0.5f);
+      std::cout << "[ATTACKSYSTEM] direction position ( " << direction.x << ", " << direction.y << " )" << std::endl;
+
+      glm::vec2 playerCenter =
+        transform.position +
+        sprite.offset +
+      glm::vec2(
+        sprite.width * 0.5f,
+        sprite.height * 0.5f
+      );
+
+      // Distance from player center to hitbox center
+      float attackDistance = 16.0f;
+
+      // Hitbox center
+      glm::vec2 hitboxCenter =
+        playerCenter +
+        direction * attackDistance;
+
+      // Convert center -> top-left
+      glm::vec2 hitboxPosition =
+        hitboxCenter -
+        glm::vec2(
+          attack.range * 0.5f,
+          attack.range * 0.5f
+        );
 
       // Create hitbox entity
       Entity hitbox = Game::GetInstance().registry->CreateEntity();
 
+      std::cout << "[ATTACKSYSTEM] transform position ( " << transform.position.x << ", " << transform.position.y << " )" << std::endl;
+
       hitbox.AddComponent<TransformComponent>(
-        glm::vec2(
-          transform.position.x + offset.x,
-          transform.position.y + offset.y
-        ),
-        transform.scale,
-        transform.rotation
+        hitboxPosition,
+        glm::vec2(1.0f, 1.0f),
+        0.0f
       );
 
       hitbox.AddComponent<BoxColliderComponent>(
-        attack.range,
-        attack.range,
-        collider.offset
+        attack.range * 2,
+        attack.range * 2,
+        glm::vec2(0.0f, 0.0f)
       );
 
       hitbox.AddComponent<DamageComponent>(attack.damage);
@@ -100,6 +124,7 @@ class AttackSystem : public System {
       RequireComponent<DirectionComponent>();
       RequireComponent<FactionComponent>();
       RequireComponent<ScriptComponent>();
+      RequireComponent<SpriteComponent>();
       RequireComponent<TransformComponent>();
     }
 
