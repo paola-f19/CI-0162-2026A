@@ -22,6 +22,10 @@ void System::RemoveEntityFromSystem(Entity entity) {
   entities.erase(it, entities.end());
 }
 
+void System::ClearEntities() {
+  entities.clear();
+}
+
 std::vector<Entity> System::GetSystemEntities() const {
   return entities;
 }
@@ -107,9 +111,22 @@ void Registry::Update() {
 }
 
 void Registry::ClearAllEntities() {
-  for (int i = 0; i < numEntity; i++) {
-    RemoveEntityFromSystems(Entity(i));
-    entityComponentSignatures[i].reset();
-    freeIds.push_back(i);
+  // Remove all entities from systems
+  for (auto& system : systems) {
+    system.second->ClearEntities();
   }
+
+  // Clear component signatures
+  entityComponentSignatures.clear();
+
+  // Clear component pools
+  componentsPools.clear();
+
+  // Clear pending entity operations
+  entitiesToBeAdded.clear();
+  entitiesToBeKilled.clear();
+
+  // Reset ID management
+  freeIds.clear();
+  numEntity = 0;
 }

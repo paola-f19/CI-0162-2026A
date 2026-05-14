@@ -147,6 +147,11 @@ class System {
     void RemoveEntityFromSystem(Entity entity);
 
     /**
+     * @brief Clears all entities from the system.
+     */
+    void ClearEntities();
+
+    /**
      * @brief Retrieves all entities managed by the system.
      *
      * @return Vector of entities.

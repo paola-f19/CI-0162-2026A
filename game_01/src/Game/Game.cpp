@@ -273,9 +273,12 @@ void Game::RunScene() {
     Render();
   }
 
+  registry->ClearAllEntities();
   assetManager->ClearAssets();
   audioManager->ClearAudio();
-  registry->ClearAllEntities();
+
+  // reset win condition
+  this->buttonCount = 2;
 }
 
 void Game::Run() {

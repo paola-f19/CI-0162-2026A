@@ -38,7 +38,10 @@ void AssetManager::AddTexture(SDL_Renderer* renderer
   }
   SDL_FreeSurface(surface);
 
-  textures.emplace(textureId, texture);
+  if (textures.count(textureId)) {
+    SDL_DestroyTexture(textures[textureId]);
+  }
+  textures[textureId] = texture;
 
   // std::cout << "[INFO] Loaded texture: " << textureId << std::endl;
 }
