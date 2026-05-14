@@ -51,9 +51,9 @@ scene = {
         text = {
           text = "Inderdimensional",
           fontId = "press_start_24",
-          r = 150,
-          g = 0,
-          b = 150,
+          r = 255,
+          g = 255,
+          b = 255,
           a = 255,
         },
         transform = {
@@ -68,9 +68,9 @@ scene = {
         text = {
           text = "Fixer",
           fontId = "press_start_24",
-          r = 150,
-          g = 0,
-          b = 150,
+          r = 255,
+          g = 255,
+          b = 255,
           a = 255,
         },
         transform = {
@@ -90,10 +90,10 @@ scene = {
         text = {
           text = "Level 01",
           fontId = "press_start_16",
-          r = 60,
-          g = 60,
-          b = 60,
-          a = 255,
+          r = 0,
+          g = 0,
+          b = 0,
+          a = 0,
         },
         transform = {
           position = { x = 180.0, y = 120.0 },
@@ -104,7 +104,7 @@ scene = {
         ui_rect = {
           width = 200,
           height = 40,
-          color = { r = 100, g = 149, b = 237, a = 255 },
+          color = { r = 245, g = 245, b = 245, a = 245 },
         },
       },
     },
@@ -118,10 +118,10 @@ scene = {
         text = {
           text = "Level 02",
           fontId = "press_start_16",
-          r = 60,
-          g = 60,
-          b = 60,
-          a = 255,
+          r = 0,
+          g = 0,
+          b = 0,
+          a = 0,
         },
         transform = {
           position = { x = 180.0, y = 180.0 },
@@ -132,7 +132,7 @@ scene = {
         ui_rect = {
           width = 200,
           height = 40,
-          color = { r = 100, g = 149, b = 237, a = 255 },
+          color = { r = 245, g = 245, b = 245, a = 245 },
         },
       },
     },
@@ -146,10 +146,10 @@ scene = {
         text = {
           text = "Level 03",
           fontId = "press_start_16",
-          r = 60,
-          g = 60,
-          b = 60,
-          a = 255,
+          r = 0,
+          g = 0,
+          b = 0,
+          a = 0,
         },
         transform = {
           position = { x = 180.0, y = 240.0 },
@@ -160,7 +160,7 @@ scene = {
         ui_rect = {
           width = 200,
           height = 40,
-          color = { r = 100, g = 149, b = 237, a = 255 },
+          color = { r = 245, g = 245, b = 245, a = 245 },
         },
       },
     },

@@ -61,34 +61,6 @@ scene = {
         ui = {},
       },
     },
-    -- Restart button
-    {
-      components = {
-        clickable = {},
-        script = {
-          path = "./assets/scripts/restart.lua",
-        },
-        text = {
-          text = "Retry",
-          fontId = "press_start_16",
-          r = 60,
-          g = 60,
-          b = 60,
-          a = 255,
-        },
-        transform = {
-          position = { x = 100.0, y = 150.0 },
-          scale = { x = 1.0, y = 1.0 },
-          rotation = 0.0,
-        },
-        ui = {},
-        ui_rect = {
-          width = 200,
-          height = 40,
-          color = { r = 100, g = 149, b = 237, a = 255 },
-        },
-      },
-    },
     -- Menu button
     {
       components = {
@@ -99,13 +71,13 @@ scene = {
         text = {
           text = "Main Menu",
           fontId = "press_start_16",
-          r = 60,
-          g = 60,
-          b = 60,
-          a = 255,
+          r = 0,
+          g = 0,
+          b = 0,
+          a = 0,
         },
         transform = {
-          position = { x = 100.0, y = 200.0 },
+          position = { x = 100.0, y = 170.0 },
           scale = { x = 1.0, y = 1.0 },
           rotation = 0.0,
         },
@@ -113,7 +85,7 @@ scene = {
         ui_rect = {
           width = 200,
           height = 40,
-          color = { r = 100, g = 149, b = 237, a = 255 },
+          color = { r = 245, g = 245, b = 245, a = 245 },
         },
       },
     },

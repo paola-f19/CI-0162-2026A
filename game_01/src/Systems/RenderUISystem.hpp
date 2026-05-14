@@ -3,9 +3,11 @@
 
 #include <SDL2/SDL.h>
 
+#include "../Components/PauseMenuComponent.hpp"
 #include "../Components/TransformComponent.hpp"
 #include "../Components/UIRectComponent.hpp"
 #include "../ECS/ECS.hpp"
+#include "../Game/Game.hpp"
 
 /**
  * @brief Renders UI rectangles to the screen.
@@ -27,6 +29,12 @@ class RenderUISystem : public System {
      */
     void Update(SDL_Renderer* renderer) {
       for (auto entity : GetSystemEntities()) {
+
+        // pause menu check
+        bool isPauseMenuEntity = entity.HasComponent<PauseMenuComponent>();
+        if (isPauseMenuEntity && !Game::GetInstance().isPaused) {
+          continue;
+        }
 
         const auto& rect = entity.GetComponent<UIRectComponent>();
         const auto& transform = entity.GetComponent<TransformComponent>();

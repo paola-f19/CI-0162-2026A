@@ -7,10 +7,12 @@
 #include <memory>
 
 #include "../AssetManager/AssetManager.hpp"
+#include "../Components/PauseMenuComponent.hpp"
 #include "../Components/TextComponent.hpp"
 #include "../Components/TransformComponent.hpp"
 #include "../Components/UIRectComponent.hpp"
 #include "../ECS/ECS.hpp"
+#include "../Game/Game.hpp"
 
 /**
  * @brief Renders text entities to the screen.
@@ -34,6 +36,13 @@ class RenderTextSystem : public System {
     void Update(SDL_Renderer* renderer
       , const std::unique_ptr<AssetManager>& assetManager) {
       for (auto entity : GetSystemEntities()) {
+
+        // pause menu check
+        bool isPauseMenuEntity = entity.HasComponent<PauseMenuComponent>();
+        if (isPauseMenuEntity && !Game::GetInstance().isPaused) {
+          continue;
+        }
+
         auto& text = entity.GetComponent<TextComponent>();
         auto& transform = entity.GetComponent<TransformComponent>();
 

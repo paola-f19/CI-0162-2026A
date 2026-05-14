@@ -135,7 +135,8 @@ scene = {
   -- Tabla de fuentes
   fonts = {
     [0] =
-    {fontId = "press_start_12", filePath = "./assets/fonts/press_start.ttf", fontSize = 20},
+    {fontId = "press_start_16", filePath = "./assets/fonts/press_start.ttf", fontSize = 16},
+    {fontId = "press_start_24", filePath = "./assets/fonts/press_start.ttf", fontSize = 24},
   },
 
   -- Tabla de acciones y teclas
@@ -191,6 +192,84 @@ scene = {
           rotation = 0.0,
         },
         ui = {},
+      },
+    },
+    -- Pause text
+    {
+      components = {
+        ui = {},
+        pause_menu = {},
+        text = {
+          text = "Paused",
+          fontId = "press_start_24",
+          r = 255,
+          g = 255,
+          b = 255,
+          a = 255,
+        },
+        transform = {
+          position = { x = 135, y = 90 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+      },
+    },
+    -- Resume button
+    {
+      components = {
+        clickable = {},
+        pause_menu = {},
+        text = {
+          text = "Resume",
+          fontId = "press_start_16",
+          r = 0,
+          g = 0,
+          b = 0,
+          a = 0,
+        },
+        transform = {
+          position = { x = 130, y = 140 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        ui = {},
+        ui_rect = {
+          width = 150,
+          height = 40,
+          color = { r = 245, g = 245, b = 245, a = 245 },
+        },
+        script = {
+          path = "./assets/scripts/pause.lua",
+        },
+      },
+    },
+    -- Main menu button
+    {
+      components = {
+        clickable = {},
+        pause_menu = {},
+        text = {
+          text = "Main Menu",
+          fontId = "press_start_16",
+          r = 0,
+          g = 0,
+          b = 0,
+          a = 0,
+        },
+        transform = {
+          position = { x = 130, y = 190 },
+          scale = { x = 1.0, y = 1.0 },
+          rotation = 0.0,
+        },
+        ui = {},
+        ui_rect = {
+          width = 150,
+          height = 40,
+          color = { r = 245, g = 245, b = 245, a = 245 },
+        },
+        script = {
+          path = "./assets/scripts/menu_button.lua",
+        },
       },
     },
     -- Click object to remove tiles - layer 1

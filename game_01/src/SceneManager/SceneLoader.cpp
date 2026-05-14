@@ -18,6 +18,7 @@
 #include "../Components/HealthComponent.hpp"
 #include "../Components/LayerComponent.hpp"
 #include "../Components/PatrolComponent.hpp"
+#include "../Components/PauseMenuComponent.hpp"
 #include "../Components/RigidBodyComponent.hpp"
 #include "../Components/SanityComponent.hpp"
 #include "../Components/ScriptComponent.hpp"
@@ -497,14 +498,12 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
           )
         );
       }
-      std::cout << "  [LOAD ENTITIES] loaded boxcollider" << std::endl;
 
       //* CameraFollowComponent
       sol::optional<sol::table> hasCameraFollow = components["camera_follow"];
       if (hasCameraFollow != sol::nullopt) {
         newEntity.AddComponent<CameraFollowComponent>();
       }
-      std::cout << "  [LOAD ENTITIES] loaded camera movement" << std::endl;
 
       //* CircleColliderComponent
       sol::optional<sol::table> hasCircleCollider =
@@ -516,7 +515,6 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
           components["circle_collider"]["height"]
         );
       }
-      std::cout << "  [LOAD ENTITIES] loaded circle collider" << std::endl;
 
       //* ClickableComponent
       sol::optional<sol::table> hasClickable = components["clickable"];
@@ -600,7 +598,6 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
           components["bar"]["posY"],
           fg, bg, type
         );
-        std::cout << "  [LOAD ENTITIES] loaded bar" << std::endl;
       }
 
       //* HealthComponent
@@ -645,6 +642,12 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
         );
       }
 
+      //* PauseMenuComponent
+      sol::optional<sol::table> hasPauseMenu = components["pause_menu"];
+      if (hasPauseMenu != sol::nullopt) {
+        newEntity.AddComponent<PauseMenuComponent>();
+      }
+
       //* RigidBodyComponent
       sol::optional<sol::table> hasRigidBody = components["rigid_body"];
       if (hasRigidBody != sol::nullopt) {
@@ -654,7 +657,6 @@ void SceneLoader::LoadEntities(sol::state& lua, const sol::table& entities
           components["rigid_body"]["mass"]
         );
       }
-      std::cout << "  [LOAD ENTITIES] loaded rigidbody" << std::endl;
 
       //* SanityComponent
       sol::optional<sol::table> hasSanity = components["sanity"];

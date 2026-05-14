@@ -279,6 +279,11 @@ void Game::RunScene() {
 
   // reset win condition
   this->buttonCount = 2;
+
+  // reset pause
+  if (this->isPaused) {
+    this->isPaused = false;
+  }
 }
 
 void Game::Run() {

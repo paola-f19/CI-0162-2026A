@@ -8,6 +8,7 @@
 #include <string>
 
 #include "../Components/ClickableComponent.hpp"
+#include "../Components/PauseMenuComponent.hpp"
 #include "../Components/ScriptComponent.hpp"
 #include "../Components/SpriteComponent.hpp"
 #include "../Components/TextComponent.hpp"
@@ -17,6 +18,7 @@
 #include "../ECS/ECS.hpp"
 #include "../EventManager/EventManager.hpp"
 #include "../Events/ClickEvent.hpp"
+#include "../Game/Game.hpp"
 
 /**
  * @brief Handles clickable UI interactions and button events.
@@ -56,6 +58,13 @@ class UISystem : public System {
      */
     void OnClickEvent(ClickEvent& e) {
       for (auto entity : GetSystemEntities()) {
+
+        // pause menu check
+        bool isPauseMenuEntity = entity.HasComponent<PauseMenuComponent>();
+        if (isPauseMenuEntity && !Game::GetInstance().isPaused) {
+          continue;
+        }
+
         const auto& transform = entity.GetComponent<TransformComponent>();
 
         int width = 0;
