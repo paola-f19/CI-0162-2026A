@@ -82,7 +82,7 @@ void Game::Init() {
   windowHeight = 600;
 
   window = SDL_CreateWindow(
-    "Motor de juegos 2D",
+    "Interdimensional Fixer",
     SDL_WINDOWPOS_CENTERED,
     SDL_WINDOWPOS_CENTERED,
     windowWidth,
